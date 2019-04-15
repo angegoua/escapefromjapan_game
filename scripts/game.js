@@ -1,17 +1,27 @@
 var canvas = document.querySelector('#game')
 var ctx = canvas.getContext("2d")
 
-import loaders from './loaders.js'
 
+function loadImage(url) {
+    return new Promise(resolve => {
+        const image = new Image();
+        image.addEventListener('load', () => {
+            resolve(image);
+        });
+        image.src = url;
+    });
+}
+
+
+loadImage('images/tile1.png')
 
 class SpriteSheet {
-    constructor(image, w = 16, h = 16) {
+    constructor(image, w = 40, h = 40) {
         this.image = image;
         this.width = w;
         this.height = h;
         this.tiles = new Map();
     }
-
     define(name, x, y) {
         const buffer = document.createElement('canvas');
         buffer.height = this.height;
@@ -41,5 +51,5 @@ class SpriteSheet {
     }
 }
 
-const sprites = new SpriteSheet()
+const sprites = new SpriteSheet(image, 40,40)
 
