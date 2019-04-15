@@ -1,0 +1,9 @@
+.gameCenter {
+    width: 1300px;
+    margin-right: auto;
+    margin-left: auto;
+}
+canvas {
+    background: black;
+}
+
