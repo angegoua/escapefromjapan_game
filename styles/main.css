@@ -4,6 +4,6 @@
     margin-left: auto;
 }
 canvas {
-    background: black;
+    background: url(../resource_pack/background/level1_map.png);
 }
 
