@@ -220,3 +220,7 @@ button a:hover {
   margin-bottom: 0;
 }
 
+footer .logoFooter img{
+  width: 100px;
+  height: auto;
+}
