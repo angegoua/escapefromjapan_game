@@ -1,6 +1,7 @@
 const canvas = document.querySelector('#game')
 const ctx = canvas.getContext("2d")
-const devMod = false //devMod qui sert à afficher un block
+const devMod = true //devMod qui sert à afficher un block
+let gamePlaying = true //Fonction used to pause the game
 
 //Objet joueur
 class Player {
@@ -19,71 +20,76 @@ class Player {
     movePlayer(){
         window.addEventListener('keydown', move, false)
         function move(key){
-            if(key.keyCode == '39'){ //KeyRight
-            
-            ctx.clearRect(player.posX, player.posY, 40,40)
-            player.posX = player.posX + player.speed // + largeur du player
-            
-                if(checkCollisionWall(player)) {
 
-                    player.posX = player.posX - player.speed 
+            //If the game is playing
+            if(gamePlaying){
 
-                }
-
-                ctx.drawImage(image, player.posX, player.posY)
-                image.src = 'resource_pack/carlos/gif_left.gif' 
-
-            }
-            else if(key.keyCode == '37'){ //KeyLeft
-            
+                if(key.keyCode == '39'){ //KeyRight
+                
                 ctx.clearRect(player.posX, player.posY, 40,40)
-                player.posX = player.posX - player.speed // + largeur du player
+                player.posX = player.posX + player.speed // + largeur du player
                 
-                if(checkCollisionWall(player)) {
+                    if(checkCollision(player)) {
 
-                    player.posX = player.posX + player.speed 
+                        player.posX = player.posX - player.speed 
+
+                    }
+
+                    ctx.drawImage(image, player.posX, player.posY)
+                    image.src = 'resource_pack/carlos/gif_left.gif' 
 
                 }
-
-                ctx.drawImage(image, player.posX, player.posY)
-                image.src = player.skin 
-                player.skin = 'resource_pack/carlos/gif_right.gif'
+                else if(key.keyCode == '37'){ //KeyLeft
                 
-            
-            }
-            if(key.keyCode == '38'){ //KeyUp
-            
-                ctx.clearRect(player.posX, player.posY, 40,40)
-                player.posY = player.posY - player.speed// + largeur du player
+                    ctx.clearRect(player.posX, player.posY, 40,40)
+                    player.posX = player.posX - player.speed // + largeur du player
+                    
+                    if(checkCollision(player)) {
+
+                        player.posX = player.posX + player.speed 
+
+                    }
+
+                    ctx.drawImage(image, player.posX, player.posY)
+                    image.src = player.skin 
+                    player.skin = 'resource_pack/carlos/gif_right.gif'
+                    
                 
-                if(checkCollisionWall(player)) {
-
-                    player.posY = player.posY + player.speed
-
                 }
-
-                ctx.drawImage(image, player.posX, player.posY)
-                image.src = player.skin 
-                player.skin = 'resource_pack/carlos/gif_back.gif'
-
+                if(key.keyCode == '38'){ //KeyUp
                 
-    
-            }
-            else if(key.keyCode == '40'){ //KeyDown
-            
-                ctx.clearRect(player.posX, player.posY, 40,40)
-                player.posY = player.posY + player.speed // + largeur du player
-                
-                if(checkCollisionWall(player)) {
+                    ctx.clearRect(player.posX, player.posY, 40,40)
+                    player.posY = player.posY - player.speed// + largeur du player
+                    
+                    if(checkCollision(player)) {
 
-                    player.posY= player.posY - player.speed
+                        player.posY = player.posY + player.speed
 
+                    }
+
+                    ctx.drawImage(image, player.posX, player.posY)
+                    image.src = player.skin 
+                    player.skin = 'resource_pack/carlos/gif_back.gif'
+
+                    
+        
                 }
+                else if(key.keyCode == '40'){ //KeyDown
+                
+                    ctx.clearRect(player.posX, player.posY, 40,40)
+                    player.posY = player.posY + player.speed // + largeur du player
+                    
+                    if(checkCollision(player)) {
 
-                ctx.drawImage(image, player.posX, player.posY)
-                image.src = player.skin 
-                player.skin = 'resource_pack/carlos/gif_face.gif'
-    
+                        player.posY= player.posY - player.speed
+
+                    }
+
+                    ctx.drawImage(image, player.posX, player.posY)
+                    image.src = player.skin 
+                    player.skin = 'resource_pack/carlos/gif_face.gif'
+        
+                }
             }
         }
             
@@ -119,12 +125,6 @@ class Wall{
         
         //Si on choisit de l'afficher
         if(devMod){
-            // let imageWall = new Image
-            // imageWall.onload = function(){
-            //   ctx.drawImage (image, walls.posX, walls.posY)  
-            // }
-            
-            // imageWall.src = walls.tile
 
             ctx.fillStyle = 'blue'
             ctx.fillRect(this.posX, this.posY, this.width, this.height)
@@ -144,17 +144,69 @@ class Guard{
         this.direction = direction; //Direction du joueur 
         this.speed = speed; //Vitesse du joueur
         this.skin = skin; //Personnage
-        this.height = 40;
-        this.width = 40;
+        this.height = 50;
+        this.width = 50;
+    }
+    move() {
+        
+        ctx.clearRect(this.posX, this.posY, 50,50)
+
+        switch (this.direction) {
+            case 'up':
+                this.posY = this.posY - this.speed
+
+                if(checkCollision(this)) {
+
+                    this.posY = this.posY + this.speed
+                    this.direction = 'down'
+                    this.skin = 'resource_pack/cop/cop_face.png'
+                }
+
+                break
+            case 'down':
+                this.posY = this.posY + this.speed
+
+                if(checkCollision(this)) {
+
+                    this.posY = this.posY - this.speed
+                    this.direction = 'up'
+                    this.skin = 'resource_pack/cop/cop_back.png'
+                }
+
+                break
+            case 'left':
+                
+                this.posX = this.posX - this.speed
+
+                if(checkCollision(this)) {
+
+                    this.posX = this.posX + this.speed
+                    this.direction = 'right'
+                    this.skin = 'resource_pack/cop/cop_right.png'
+                }
+
+                break
+            case 'right':
+
+                this.posX = this.posX + this.speed
+
+                if(checkCollision(this)) {
+
+                    this.posX = this.posX - this.speed
+                    this.direction = 'left'
+                    this.skin = 'resource_pack/cop/cop_left.png'
+                }
+        }
     }
 }
 
 let guards = [
-    new Guard(20, 40, 'left', 5, 'resource_pack/cop/cop_face.png'),
-    new Guard(20, 80, 'left', 5, 'resource_pack/cop/cop_face.png')
+    new Guard(20, 40, 'down', 5, 'resource_pack/cop/cop_face.png'),
+    new Guard(20, 80, 'right', 10, 'resource_pack/cop/cop_face.png')
 ]
 
 let guardsImages = new Array()
+
 
 //Spawning of Guards
 for(let i = 0; i < guards.length; i++){
@@ -166,6 +218,21 @@ for(let i = 0; i < guards.length; i++){
         ctx.drawImage(guardsImages[i], guards[i].posX, guards[i].posY)
     }
     guardsImages[i].src = guards[i].skin 
+}
+
+let moveGuardInterval = setInterval(moveGuards, 100)
+
+function moveGuards(){
+
+    //Creating of walls
+    for(let i = 0; i < walls.length; i++){
+
+        guards[i].move()
+
+        ctx.drawImage(guardsImages[i], guards[i].posX, guards[i].posY)
+        guardsImages[i].src = guards[i].skin 
+    }
+
 }
 
 /*
@@ -200,7 +267,7 @@ for(let i = 0; i < walls.length; i++){
 }
 
 //Test of collision
-function checkCollisionWall(object){
+function checkCollision(object){
     for(let i = 0; i < walls.length; i++){
 
         //If a collision is detected
@@ -216,3 +283,12 @@ function checkCollisionWall(object){
     } 
 }
 
+function gamePause() {
+    clearInterval(moveGuardInterval);
+    gamePlaying = false
+}
+
+function gameContinue() {
+    let moveGuardInterval = setInterval(moveGuards, 100)
+    gamePlaying = true
+}
