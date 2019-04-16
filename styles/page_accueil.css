@@ -22,6 +22,11 @@ header {
 
 }
 
+header .logo img{
+  width: 75px;
+  height: auto;
+}
+
 #socialMedia{
   padding-top: 10px;
   padding-right: 110px;
@@ -214,3 +219,4 @@ button a:hover {
   font-size: 13px;
   margin-bottom: 0;
 }
+
