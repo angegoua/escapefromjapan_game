@@ -9,8 +9,10 @@ class Player {
         this.posX = posX; //Position du joueur
         this.posY = posY;   //Position du joueur Y
         this.direction = direction; //Direction du joueur 
-        this.speed = speed; //Vitesse du joueur
+        this.speed = 5; //Vitesse du joueur
         this.skin = skin; //Personnage
+        this.height = 40;
+        this.width = 40;
     }
     
     // GESTION MOUVEMENT DU PLAYER ET ATTRIBUTION DES KEYCODES
@@ -20,19 +22,29 @@ class Player {
             if(key.keyCode == '39'){ //KeyRight
             
             ctx.clearRect(player.posX, player.posY, 40,40)
-            player.posX = player.posX + 40 // + largeur du player
+            player.posX = player.posX + player.speed // + largeur du player
             
-            checkCollision(player)
+                if(checkCollision(player)) {
 
-            ctx.drawImage(image, player.posX, player.posY)
-            image.src = player.skin 
+                    player.posX = player.posX - player.speed 
+
+                }
+
+                ctx.drawImage(image, player.posX, player.posY)
+                image.src = player.skin 
 
             }
             if(key.keyCode == '37'){ //KeyLeft
             
                 ctx.clearRect(player.posX, player.posY, 40,40)
-                player.posX = player.posX - 40 // + largeur du player
+                player.posX = player.posX - player.speed // + largeur du player
                 
+                if(checkCollision(player)) {
+
+                    player.posX = player.posX + player.speed 
+
+                }
+
                 ctx.drawImage(image, player.posX, player.posY)
                 image.src = player.skin 
     
@@ -41,8 +53,14 @@ class Player {
             if(key.keyCode == '38'){ //KeyUp
             
                 ctx.clearRect(player.posX, player.posY, 40,40)
-                player.posY = player.posY - 40 // + largeur du player
+                player.posY = player.posY - player.speed// + largeur du player
                 
+                if(checkCollision(player)) {
+
+                    player.posY = player.posY + player.speed
+
+                }
+
                 ctx.drawImage(image, player.posX, player.posY)
                 image.src = player.skin 
     
@@ -50,8 +68,14 @@ class Player {
             if(key.keyCode == '40'){ //KeyDown
             
                 ctx.clearRect(player.posX, player.posY, 40,40)
-                player.posY = player.posY + 40 // + largeur du player
+                player.posY = player.posY + player.speed // + largeur du player
                 
+                if(checkCollision(player)) {
+
+                    player.posY= player.posY - player.speed
+
+                }
+
                 ctx.drawImage(image, player.posX, player.posY)
                 image.src = player.skin 
     
@@ -62,7 +86,7 @@ class Player {
 }
 
 
-let player = new Player(0, canvas.height - 40, 'down', 1, 'images/player.png')
+let player = new Player(250, canvas.height - 80, 'down', 1, 'resource_pack/carlos/carlos_back.png')
 
 //PLAYER'S CREATE
 let image = new Image()
@@ -98,14 +122,53 @@ class Wall{
     }
 }
 
-//Collision: https://developer.mozilla.org/fr/docs/Games/Techniques/2D_collision_detection
+/*
+GUARD PART
+*/
+class Guard{
+    constructor(posX, posY, direction, speed, skin) {
+        this.posX = posX; //Position du joueur
+        this.posY = posY;   //Position du joueur Y
+        this.direction = direction; //Direction du joueur 
+        this.speed = speed; //Vitesse du joueur
+        this.skin = skin; //Personnage
+        this.height = 40;
+        this.width = 40;
+    }
+}
+
+let guards = [
+    new Guard(20, 40, 'left', 5, 'resource_pack/cop/cop_face.png'),
+    new Guard(20, 80, 'left', 5, 'resource_pack/cop/cop_face.png')
+]
+
+let guardsImages = new Array()
+
+//Spawning of Guards
+for(let i = 0; i < guards.length; i++){
+   
+    //PLAYER'S CREATE
+    guardsImages[i] = new Image()
+
+    guardsImages[i].onload = function(){
+        ctx.drawImage(guardsImages[i], guards[i].posX, guards[i].posY)
+    }
+    guardsImages[i].src = guards[i].skin 
+}
+
+/*
+WALL PART
+*/
 
 //Arrays of walls Wall(x, y, width, height)
 let walls = [
-    new Wall(100, 691, 20, 40),
-    new Wall(60, 680, 20, 40),
-    new Wall(60, 140, 20, 40),
-    new Wall(90, 40, 20, 40)
+    new Wall(0, 0, 1300, 10),//bordure haut
+    new Wall(0, 721, 1300, 10),//bordure bas
+    new Wall(0, 0, 10, 731),//bordure gauche
+    new Wall(1290, 0, 10, 731),//bordure droit
+    new Wall(60, 600, 60, 60),
+    new Wall(10, 300, 60, 60),
+    new Wall(600, 200, 100, 60)
 ]
 
 //Creating of walls
@@ -118,10 +181,16 @@ function checkCollision(object){
 
     for(let i = 0; i < walls.length; i++){
 
-        if (object.posX < walls[i].posX + walls[i].width && object.posX + object.width > walls[i].posX && object.posY < walls[i].posY + walls[i].height && rect1.height + rect1.posY > walls[i].posY) {
-            // collision détectée !
-            alert("colision détectée")
-        }
+        //If a collision is détected
+        if (object.posX + object.width > walls[i].posX && 
+            object.posX < walls[i].posX + walls[i].width &&
+            object.posY < walls[i].posY + walls[i].height && 
+            object.posY + object.height > walls[i].posY
+            ) {
 
+            return true
+
+         }
     } 
 }
+
