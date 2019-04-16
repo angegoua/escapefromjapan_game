@@ -10,7 +10,7 @@ class Player {
         this.posY = posY;   //Position du joueur Y
         this.direction = direction; //Direction du joueur 
         this.speed = 20; //Vitesse du joueur
-        this.skin = skin; //Personnage
+        this.skin = [skin]; //Personnage
     }
     
     // GESTION MOUVEMENT DU PLAYER ET ATTRIBUTION DES KEYCODES
@@ -25,10 +25,11 @@ class Player {
             checkCollision(player)
 
             ctx.drawImage(image, player.posX, player.posY)
-            image.src = player.skin 
+            image.src = player.skin
+            player.skin = 'resource_pack/carlos/gif_left.gif'
 
             }
-            if(key.keyCode == '37'){ //KeyLeft
+            else if(key.keyCode == '37'){ //KeyLeft
             
                 ctx.clearRect(player.posX, player.posY, 40,40)
                 player.posX = player.posX - player.speed // + largeur du player
@@ -37,7 +38,7 @@ class Player {
 
                 ctx.drawImage(image, player.posX, player.posY)
                 image.src = player.skin 
-                
+                player.skin = 'resource_pack/carlos/gif_right.gif'
                 
             
             }
@@ -51,6 +52,7 @@ class Player {
 
                 ctx.drawImage(image, player.posX, player.posY)
                 image.src = player.skin 
+                player.skin = 'resource_pack/carlos/gif_back.gif'
 
                 
     
@@ -64,6 +66,7 @@ class Player {
                 
                 ctx.drawImage(image, player.posX, player.posY)
                 image.src = player.skin 
+                player.skin = 'resource_pack/carlos/gif_face.gif'
     
             }
         }
@@ -71,8 +74,11 @@ class Player {
     }
 }
 
+    // ['resource_pack/carlos/carlos_back.png', 'resource_pack/carlos/carlos_front.png', 'resource_pack/carlos/carlos_left.png', 'resource_pack/carlos/carlos_right.png']
+    // ['resource_pack/carlos/gif_back', 'resource_pack/carlos/gif_front', 'resource_pack/carlos/gif_left', 'resource_pack/carlos/gif_right']
 
-let player = new Player(300, canvas.height - 40, 'down', 1, 'images/player.png')
+let player = new Player(300, canvas.height - 40, 'down', 1,'resource_pack/carlos/carlos_back.png' )
+
 
 //PLAYER'S CREATE
 let image = new Image()
@@ -89,22 +95,30 @@ player.movePlayer()
 
 //Objet mur
 class Wall{
-    constructor(posX, posY, width, height, display){
+    constructor(posX, posY, width, height, display, tile){
         this.posX = posX
         this.posY = posY
         this.width = width
         this.height = height
         this.display = display
-
+        this.tile = 'resource_pack/background/wall/front_wall.png'
     }
     create(){
         
         //Si on choisit de l'afficher
         if(devMod){
+            // let imageWall = new Image
+            // imageWall.onload = function(){
+            //   ctx.drawImage (image, walls.posX, walls.posY)  
+            // }
+            
+            // imageWall.src = walls.tile
+
             ctx.fillStyle = 'blue'
+            ctx.fillRect(this.posX, this.posY, this.width, this.height)
         }
 
-        ctx.fillRect(this.posX, this.posY, this.width, this.height)
+        
     }
 }
 
