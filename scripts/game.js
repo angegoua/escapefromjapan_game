@@ -26,9 +26,12 @@ class Player {
             
                 if(checkCollision(player)) {
 
-            ctx.drawImage(image, player.posX, player.posY)
-            image.src = player.skin
-            player.skin = 'resource_pack/carlos/gif_left.gif'
+                    player.posX = player.posX - player.speed 
+
+                }
+
+                ctx.drawImage(image, player.posX, player.posY)
+                image.src = player.skin 
 
             }
             else if(key.keyCode == '37'){ //KeyLeft
