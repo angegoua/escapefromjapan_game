@@ -1,6 +1,6 @@
 const canvas = document.querySelector('#game')
 const ctx = canvas.getContext("2d")
-const devMod = true //devMod qui sert à afficher un block
+const devMod = false //devMod qui sert à afficher un block
 
 //Objet joueur
 class Player {
@@ -24,7 +24,7 @@ class Player {
             ctx.clearRect(player.posX, player.posY, 40,40)
             player.posX = player.posX + player.speed // + largeur du player
             
-                if(checkCollision(player)) {
+                if(checkCollisionWall(player)) {
 
                     player.posX = player.posX - player.speed 
 
@@ -39,7 +39,7 @@ class Player {
                 ctx.clearRect(player.posX, player.posY, 40,40)
                 player.posX = player.posX - player.speed // + largeur du player
                 
-                if(checkCollision(player)) {
+                if(checkCollisionWall(player)) {
 
                     player.posX = player.posX + player.speed 
 
@@ -56,7 +56,7 @@ class Player {
                 ctx.clearRect(player.posX, player.posY, 40,40)
                 player.posY = player.posY - player.speed// + largeur du player
                 
-                if(checkCollision(player)) {
+                if(checkCollisionWall(player)) {
 
                     player.posY = player.posY + player.speed
 
@@ -74,7 +74,7 @@ class Player {
                 ctx.clearRect(player.posX, player.posY, 40,40)
                 player.posY = player.posY + player.speed // + largeur du player
                 
-                if(checkCollision(player)) {
+                if(checkCollisionWall(player)) {
 
                     player.posY= player.posY - player.speed
 
@@ -91,7 +91,7 @@ class Player {
 }
 
 
-let player = new Player(250, canvas.height - 80, 'down', 1, 'resource_pack/carlos/carlos_back.png')
+let player = new Player(70, 15, 'down', 1, 'resource_pack/carlos/carlos_face_stopover.png')
 
 //PLAYER'S CREATE
 let image = new Image()
@@ -108,13 +108,12 @@ player.movePlayer()
 
 //Objet mur
 class Wall{
-    constructor(posX, posY, width, height, display, tile){
+    constructor(posX, posY, width, height, display){
         this.posX = posX
         this.posY = posY
         this.width = width
         this.height = height
         this.display = display
-        this.tile = 'resource_pack/background/wall/front_wall.png'
     }
     create(){
         
@@ -179,9 +178,20 @@ let walls = [
     new Wall(0, 721, 1300, 10),//bordure bas
     new Wall(0, 0, 10, 731),//bordure gauche
     new Wall(1290, 0, 10, 731),//bordure droit
-    new Wall(60, 600, 60, 60),
-    new Wall(10, 300, 60, 60),
-    new Wall(600, 200, 100, 60)
+    new Wall(55, 610, 132, 70), //Salle à manger bas à gauche
+    new Wall(250, 610, 132, 70),//Salle à manger bas à gauche 2
+    new Wall(10, 190, 100, 40),//Mur porte cellule
+    new Wall(150, 0, 10, 380), // Mur droit cellule
+    new Wall(150, 190, 690, 40),// Mur douche
+    new Wall(835, 190, 10, 300), // Mur relié à droite de mur douche
+    new Wall(835, 490, 128, 40),
+    new Wall(835, 350, 128, 40),
+
+    new Wall(0, 450, 335,40),
+    new Wall(420, 450, 195,40),
+    new Wall(600, 450, 10, 120),
+    new Wall(80, 540,550, 25),
+    new Wall(600, 630, 10, 120),
 ]
 
 //Creating of walls
@@ -189,11 +199,11 @@ for(let i = 0; i < walls.length; i++){
     walls[i].create(walls[i].posX, walls[i].posY, walls[i].width, walls[i].height)
 }
 
-//Test of collisigion
-function checkCollision(object){
+//Test of collision
+function checkCollisionWall(object){
     for(let i = 0; i < walls.length; i++){
 
-        //If a collision is détected
+        //If a collision is detected
         if (object.posX + object.width > walls[i].posX && 
             object.posX < walls[i].posX + walls[i].width &&
             object.posY < walls[i].posY + walls[i].height && 
