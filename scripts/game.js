@@ -31,7 +31,7 @@ class Player {
                 }
 
                 ctx.drawImage(image, player.posX, player.posY)
-                image.src = player.skin 
+                image.src = 'resource_pack/carlos/gif_left.gif' 
 
             }
             else if(key.keyCode == '37'){ //KeyLeft
