@@ -5,51 +5,69 @@
     <title>Escape from Japan</title>
     <meta name="description" content="Jeu drole blablabla">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/page_accueil.css">
-    <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oxygen|Roboto+Slab|VT323" rel="stylesheet">
 </head>
 <body>
 <header>
   <div>
     <p>Logo</p>
   </div>
-  <div>
-    <img alt="Facebook" src="images/page_accueil/facebook_icon.png"/>
-    <img alt="Instagram" src="images/page_accueil/instagram_icon.png"/>
-    <img alt="Youtube" src="images/page_accueil/youtube_icon.png"/>
+  <div id="socialMedia">
+    <a href="https://www.facebook.com/"><img alt="Facebook" src="images/page_accueil/facebook_icon.png"/></a>
+    <a href="https://www.instagram.com/"><img alt="Instagram" src="images/page_accueil/instagram_icon.png"/></a>
+    <a href="https://www.youtube.com/"><img alt="Youtube" src="images/page_accueil/youtube_icon.png"/></a>
   </div>
 </header>
 <main>
-  <div>
-    <h2>Aidez Carlos Ghosn à s'évader de prison</h2>
-  </div>
-  <div class="allGame">
-    <div class="game">
-      <img class="firstImage" alt="PrisonOne" src="images/page_accueil/example1.JPG"/>
-      <div class="informations">
-        <container class="images">
-          <img alt="PrisonTwo" src="images/page_accueil/example2.JPG"/>
-          <img alt="PrisonThree" src="images/page_accueil/example3.JPG"/>
-          <img alt="PrisonFour" src="images/page_accueil/example4.JPG"/>
-        </container>
-        <p class="description">Un nouveau jeu de stratégie où le héros est Carlos Ghosn. Une fois qu'il a réussi à sortir de la cellule, il doit maintenant se méfier des gardes et des autres obstacles. Aidez Carlos à atteindre la sortie et retrouver sa liberté!</p>
-        <button><a href="play.html">Jouez maintenant !</a></button>
+  <h2>Aidez Carlos Ghosn à s'évader de prison !</h2>
+  <!-- SLIDER -->
+  <div class="container">
+    <div class="slider">
+      <div class="sliderContainer" style="left:0;">
+        <img alt="PrisonOne" src="images/page_accueil/example1.JPG"/>
+        <img alt="PrisonTwo" src="images/page_accueil/example2.JPG"/>
+        <img alt="PrisonThree" src="images/page_accueil/example3.JPG"/>
+        <img alt="PrisonFour" src="images/page_accueil/example4.JPG"/>
       </div>
+      <div class="navigation">
+        <a href="#" title="Left" class="left"><</a>
+        <a href="#" title="Right" class="right">></a>
+      </div>
+      <ul class="pagination">
+    </ul>
     </div>
   </div>
-</main>
-<footer>
-  <div>
-    <p>Logo encore</p>
+  <!-- END SLIDER -->
+  <div class="information">
+    <p>Un nouveau jeu de stratégie où le héros est Carlos Ghosn et l'endroit est la prison du Japon. Une fois qu'il a réussi à sortir de la cellule, il doit maintenant se méfier des gardes et des autres obstacles. Incarnez Carlos sur son chemin vers la liberté!</p>
+    <h4>Partagez vos scores sur Instagram sous #CarlosIsGone !</h4>
+    <button><a href="play.html">Jouez maintenant !</a></button>
   </div>
-  <div class="flex-container">
-    <a href="">Nous contacter</a>
-    <a href="">Utilisation des cookies</a>
-  </div>
-  <div class="copyright">
-    <p>Copyright © 2019 EscapefromJapan Inc. All rights reserved.</p>
-  </div>
-</footer>
+  <div class="instructions">
+    <h2>Va-t-il réussir à s'échapper?</h2>
+    <h3>Les règles du jeu :</h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse feugiat ornare ligula eget varius. Integer ornare velit massa, sit amet ultrices libero laoreet a. Ut volutpat interdum turpis. Sed lacus lectus, hendrerit et ipsum vel, consectetur ornare mauris. Vestibulum porttitor aliquam nunc varius facilisis. In hendrerit tristique est nec pulvinar. Donec a placerat turpis. Proin finibus vulputate enim, vel ultricies lectus efficitur vel. Etiam gravida feugiat nisl non rutrum. In vitae convallis mi, ac cursus eros. Vivamus vel tempor diam. Curabitur nec elit accumsan, malesuada libero a, tristique lectus. Nunc vehicula et orci quis feugiat.</p>
+    <div class="arrowText">
+      <div><img alt="upArrow" src="images/page_accueil/arrow.png"/><p>Elle dirige Carlos en haut</p></div>
+      <div><img id="right" alt="rightArrow" src="images/page_accueil/arrow.png"/><p>Elle dirige Carlos à droite</p></div>
+      <div><img id="down" alt="downArrow" src="images/page_accueil/arrow.png"/><p>Elle dirige Carlos en bas</p></div>
+      <div><img id="left" alt="leftArrow" src="images/page_accueil/arrow.png"/><p>Elle dirige Carlos à gauche</p></div>
+    </div>
+  </main>
+  <footer>
+    <div>
+      <p>Logo encore</p>
+    </div>
+    <div class="flex-container">
+      <a href="https://en.wikipedia.org/wiki/Contact">Nous contacter</a>
+      <a href="https://fr.wikipedia.org/wiki/Cookie_(informatique)">Utilisation des cookies</a>
+    </div>
+    <div class="copyright">
+      <p>Copyright © 2019 EscapefromJapan Inc. All rights reserved.</p>
+    </div>
+  </footer>
 
+    <script src="scripts/slider.js"></script>
     <script src="scripts/game.js"></script>
 </body>
 </html>
