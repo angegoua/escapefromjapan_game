@@ -47,7 +47,8 @@ class Player {
 
                 ctx.drawImage(image, player.posX, player.posY)
                 image.src = player.skin 
-    
+                
+                
             
             }
             if(key.keyCode == '38'){ //KeyUp
@@ -63,9 +64,11 @@ class Player {
 
                 ctx.drawImage(image, player.posX, player.posY)
                 image.src = player.skin 
+
+                
     
             }
-            if(key.keyCode == '40'){ //KeyDown
+            else if(key.keyCode == '40'){ //KeyDown
             
                 ctx.clearRect(player.posX, player.posY, 40,40)
                 player.posY = player.posY + player.speed // + largeur du player
@@ -160,7 +163,7 @@ for(let i = 0; i < guards.length; i++){
 WALL PART
 */
 
-//Arrays of walls Wall(x, y, width, height)
+// Arrays of walls Wall(x, y, width, height)
 let walls = [
     new Wall(0, 0, 1300, 10),//bordure haut
     new Wall(0, 721, 1300, 10),//bordure bas
@@ -178,7 +181,6 @@ for(let i = 0; i < walls.length; i++){
 
 //Test of collisigion
 function checkCollision(object){
-
     for(let i = 0; i < walls.length; i++){
 
         //If a collision is détected
