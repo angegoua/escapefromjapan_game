@@ -265,18 +265,28 @@ let walls = [
     new Wall(55, 610, 132, 70), //Salle à manger bas à gauche
     new Wall(250, 610, 132, 70),//Salle à manger bas à gauche 2
     new Wall(10, 190, 100, 40),//Mur porte cellule
-    new Wall(150, 0, 10, 380), // Mur droit cellule
+    new Wall(150, 0, 10, 370), // Mur droit cellule
     new Wall(150, 190, 690, 40),// Mur douche
     new Wall(835, 190, 10, 300), // Mur relié à droite de mur douche
     new Wall(835, 490, 128, 40), // Mur bas petit carré milieu map
     new Wall(835, 350, 128, 40), // Mur haut petit carré milieu map
-
+    new Wall(945, 350, 20, 150), // Mur droite petit carré milieu map
+    new Wall(150, 85, 97, 35), // Mur entre 2 toilettes
+    new Wall(1061, 0, 10, 200), // Mur gauche bureau
+    new Wall(1061, 190, 182, 35), // Mur bas bureau
+    new Wall(1127, 0, 22, 100), // Bureau dans bureau
     new Wall(0, 450, 335,40), // Mur haut cantine
     new Wall(420, 450, 195,40), // Mur haut droite cantine
-    new Wall(600, 450, 10, 120), 
-    new Wall(80, 540,550, 25),
-    new Wall(600, 630, 10, 120),
-    new Wall(1065, 580, 10, 170),
+    new Wall(600, 450, 10, 120), // Mur droite petit cantine
+    new Wall(80, 540, 550, 25), // Longue table cantine
+    new Wall(600, 620, 10, 120), // Mur droite petit en bas cantine
+    new Wall(1065, 580, 10, 170), // Mur gauche sortie
+    new Wall(1065, 575, 140, 35), // Mur haut sortie
+    new Wall(1260, 575, 30, 35), // Mur haut petit sortie
+    new Wall(10, 92, 18, 35), // Toilette cellule
+    new Wall(160, 130, 17, 35), // Toilettes bas douche
+    new Wall(160, 60, 17, 25), // Toilettes haut douche
+    new Wall(325, 425, 110, 10), //Mur renfoncement haut cantine
 ]
 
 //Creating of walls
