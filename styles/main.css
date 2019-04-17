@@ -14,6 +14,7 @@ body{
 }
 canvas {
     background: url(../resource_pack/background/map1_withouth_cop_and_key.png);
+    position: relative;
 }
 
 p{
@@ -23,3 +24,59 @@ p{
     text-shadow: 4px 2px #1e0ef4;
     margin: 0;
 }
+
+.gameDisplay {
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 1300px;
+    height: 731px;
+    top: 112px;
+}
+
+.gameDisplay h1, .gameDisplay h2 {
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+}
+
+.gameDisplay h1 {
+    margin-top: 176px;
+    font-size: 93px;
+    
+}
+
+.gameDisplay h2 {
+    margin-right: auto;
+    margin-left: auto;
+    width: 160px;
+    font-size: 50px;
+    border-bottom: 5px solid white;
+    border-top: 5px solid white;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    background-color: none;
+	transition: background-color 0.3s ease-out;
+}
+
+.gameDisplay h2:hover {
+    background-color: white;
+    color: black;
+}
+
+.gameDisplayKeyCenter {
+    position: relative;
+    top: -81px;
+    left: 21px;
+}
+
+.gameDisplayKey {
+    position: absolute;
+    width: 132px;
+    height: 59px;
+    font-size: 62px;
+    color: white;
+    background-color: rgba(99, 96, 96, 0.65);
+    border-radius: 2px;
+}
+

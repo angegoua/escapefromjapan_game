@@ -124,8 +124,7 @@ class Player {
         
                 }
             }
-        }
-            
+        }        
     }
 }
 
@@ -248,7 +247,6 @@ function moveGuards(){
         guardsImages[i].src = guards[i].skin 
         
     }
-
 }
 
 
@@ -359,7 +357,7 @@ let zoneObjects = [
     new ZoneObject(1200, 20, 90, 100, 'camera')//First camera on the extrem right 
 ]
 
-//Creating of walls
+//Creating of zoneObjects
 for(let i = 0; i < zoneObjects.length; i++){
     zoneObjects[i].create(zoneObjects[i].posX, zoneObjects[i].posY, zoneObjects[i].width, zoneObjects[i].height, zoneObjects[i].type, zoneObjects[i].skin)
 }
@@ -395,30 +393,13 @@ function checkCollisionGuards(object){
             object.posY < guards[i].posY + guards[i].height +20 && 
             object.posY + object.height > guards[i].posY -20
             ) {
-                alert('Mort')
                 init()
+                uiDivDisplay('gameLose')
             return true
 
          }
     } 
 }
-function checkCollisionPlayer(object){
-    // for(let i = 0; i < guards.length; i++){
-
-        //If a collision is detected
-        if (object.posX + object.width > player.posX - 20 && 
-            object.posX < player.posX  + player.width +20 &&
-            object.posY < player.posY + player.height +20 && 
-            object.posY + object.height > player.posY -20
-            ) {
-                alert('Mort')
-                init()
-            return true
-
-         }
-    // } 
-}
-
 
 //Collision with zoneObjects
 function checkCollisionZoneObjects() {
@@ -430,14 +411,14 @@ function checkCollisionZoneObjects() {
         //if zone ocjet == victory and collision == true
         if(zoneObjects[i].type == 'victoryZone' && zoneObjects[i].checkCollision() == true)
         {
-            alert('Vous avez gagné')
+            uiDivDisplay('gameWin')
         }
 
         //if zone ocjet == camera and collision == true
 
         if(zoneObjects[i].type == 'camera' && zoneObjects[i].checkCollision() == true){
 
-            alert('Vous avez été repérés par une caméra')
+            uiDivDisplay('gameLose')
 
         }
     }
@@ -453,13 +434,13 @@ window.addEventListener('keydown', gamePause, false)
 function gamePause(key) {
     if(key.keyCode == '80' && gamePlaying){
         clearInterval(moveGuardInterval);
-    gamePlaying = false
+        gamePlaying = false
 
+        uiDivDisplay('gamePause')
     }
     //console.log(counterPause)
     else if(key.keyCode == '80' && !gamePlaying){
         gameContinue()
-
     }
 }
 
@@ -471,6 +452,7 @@ function gameContinue() {
 
 function init(){
     player = new Player(70, 15, 'down', 1, 'resource_pack/carlos/carlos_face_stopover.png')
+
 }
 
 
@@ -499,8 +481,138 @@ for(let i=0; i < keys.length; i++){
 }
     imageKeys.src = keys.skin
  
+
 }
 
+let keysNumber = 0
+function checkCollisionKeys(player){
+    for(let i = 0; i < keys.length; i++){
+
+        //If a collision is detected
+        if (player.posX + player.width > keys[i].posX  && 
+            player.posX < keys[i].posX  + keys[i].width  &&
+            player.posY < keys[i].posY + keys[i].height  && 
+            player.posY + keys[i].height > keys[i].posY 
+            ) { 
+                keysNumber ++
+                alert(`You Got ${keysNumber} Keys`)
+                console.log(keysNumber)
+            return true
+         }
+    
+    }    
+} 
+/*
+UI
+*/
+
+let UIdiv = document.querySelector('.gameDisplay')
+let gameDisplayTitle = document.querySelector('.gameDisplayTitle')
+let gameDisplayButton1 = document.querySelector('.gameDisplayButton1')
+let gameDisplayButton2 = document.querySelector('.gameDisplayButton2')
+
+//Displaying of the menu
+function uiDivDisplay(action) {
+
+    UIdiv.style.display = 'block'
+
+    if(action == 'gamePause'){
+
+        //Changing text of buttons
+        gameDisplayTitle.innerHTML = 'Paused'
+        gameDisplayButton1.innerHTML = 'Resume'
+        gameDisplayButton2.innerHTML = 'Quit'
+
+        //If the client click on the button "Resume"
+        gameDisplayButton1.addEventListener(
+            'click',
+            function(){
+                
+                if( !gamePlaying){
+                    gameContinue()
+                }
+
+                //Hidding the menu
+                uiDivHide()
+            }
+        )
+
+        //If the client click on the button "Quit"
+        gameDisplayButton2.addEventListener(
+            'click',
+            function(){
+                document.location.href="index.html"
+            }
+        )
+    }
+    else if(action == 'gameLose'){
+
+        //Changing text of buttons
+        gameDisplayTitle.innerHTML = 'You lose'
+        gameDisplayButton1.innerHTML = 'Retry'
+        gameDisplayButton2.innerHTML = 'Quit'
+
+        //If the client click on the button "Retry"
+        gameDisplayButton1.addEventListener(
+            'click',
+            function(){
+                
+                //fonction qui fait recommencer le niveau
+                init()
+
+                //Hidding the menu
+                uiDivHide()
+            }
+        )
+
+        //If the client click on the button "Quit"
+        gameDisplayButton2.addEventListener(
+            'click',
+            function(){
+                document.location.href="index.html"
+            }
+        )
+    }
+    else if(action == 'gameWin'){
+
+        //Changing text of buttons
+        gameDisplayTitle.innerHTML = 'You won'
+        gameDisplayButton1.innerHTML = 'Next level'
+        gameDisplayButton2.innerHTML = 'Restart'
+
+        //If the client click on the button "Next level"
+        gameDisplayButton1.addEventListener(
+            'click',
+            function(){
+                
+                //fonction which move the player to the next level
+
+                //Hidding the menu
+                uiDivHide()
+                
+            }
+        )
+
+        //If the client click on the button "Restart level"
+        gameDisplayButton2.addEventListener(
+            'click',
+            function(){
+                
+                //Fonction which retry the level
+                init()
+
+                //Hidding the menu
+                uiDivHide()
+            }
+        )
+    }
+
+}
+
+//hidding of the menu
+function uiDivHide(){
+    UIdiv.style.display = 'none' 
+}
 
 
 let keysNumber = 0
