@@ -260,12 +260,12 @@ let walls = [
     new Wall(150, 0, 10, 380), // Mur droit cellule
     new Wall(150, 190, 690, 40),// Mur douche
     new Wall(835, 190, 10, 300), // Mur relié à droite de mur douche
-    new Wall(835, 490, 128, 40),
-    new Wall(835, 350, 128, 40),
+    new Wall(835, 490, 128, 40), // Mur bas petit carré milieu map
+    new Wall(835, 350, 128, 40), // Mur haut petit carré milieu map
 
-    new Wall(0, 450, 335,40),
-    new Wall(420, 450, 195,40),
-    new Wall(600, 450, 10, 120),
+    new Wall(0, 450, 335,40), // Mur haut cantine
+    new Wall(420, 450, 195,40), // Mur haut droite cantine
+    new Wall(600, 450, 10, 120), 
     new Wall(80, 540,550, 25),
     new Wall(600, 630, 10, 120),
     new Wall(1065, 580, 10, 170),
