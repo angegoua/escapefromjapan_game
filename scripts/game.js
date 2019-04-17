@@ -1,26 +1,47 @@
+/*
+    ____________________________________________
+    *******  HELLO
+         WELCOME IN OUR HOME
+        I HOPE YOU WILL ENJOY
+        WE ARE OPENED FOR REMARKS
+                THANKS *******
+    _______________________________________________
+*/
+
+
 const canvas = document.querySelector('#game')
 const ctx = canvas.getContext("2d")
-const devMod = false //devMod qui sert à afficher un block
-let gamePlaying = true //Fonction used to pause the game
+const devMod = false //TO see block of wall
+let gamePlaying = true //Function used to pause the game
 let player
 
-//Objet joueur
+//OBJECT PLAYER
 class Player {
     constructor(posX, posY, direction, speed, skin) {
         
+<<<<<<< HEAD
         this.posX = posX; //Position du joueur
         this.posY = posY;   //Position du joueur Y
         this.direction = direction; //Direction du joueur 
         this.speed = 10; //Vitesse du joueur
         this.skin = skin; //Personnage
+=======
+        this.posX = posX; //player position on x
+        this.posY = posY;   //player position on y
+        this.direction = direction; //player direction 
+        this.speed = 5; //player speed
+        this.skin = skin; //player
+>>>>>>> 5a4c564f735c26a1bc92dd51e2bea041ccbdfef5
         this.height = 40;
         this.width = 40;
     }
     
-    // GESTION MOUVEMENT DU PLAYER ET ATTRIBUTION DES KEYCODES
+    
+    // PLAYER'S MOVESAND KEYCODES ATTRIBUTION
     movePlayer(){
         window.addEventListener('keydown', move, false)
         function move(key){
+            
 
             //If the game is playing
             if(gamePlaying){
@@ -28,7 +49,7 @@ class Player {
                 if(key.keyCode == '39'){ //KeyRight
                 
                 ctx.clearRect(player.posX, player.posY, 40,40)
-                player.posX = player.posX + player.speed // + largeur du player
+                player.posX = player.posX + player.speed // + width player
                 
                     checkCollisionGuards(player)
 
@@ -46,7 +67,7 @@ class Player {
                 else if(key.keyCode == '37'){ //KeyLeft
                 
                     ctx.clearRect(player.posX, player.posY, 40,40)
-                    player.posX = player.posX - player.speed // + largeur du player
+                    player.posX = player.posX - player.speed // + width player
                     
                     checkCollisionGuards(player)
 
@@ -66,7 +87,7 @@ class Player {
                 if(key.keyCode == '38'){ //KeyUp
                 
                     ctx.clearRect(player.posX, player.posY, 40,40)
-                    player.posY = player.posY - player.speed// + largeur du player
+                    player.posY = player.posY - player.speed// +witdh player
                     
                     checkCollisionGuards(player)
 
@@ -87,7 +108,7 @@ class Player {
                 else if(key.keyCode == '40'){ //KeyDown
                 
                     ctx.clearRect(player.posX, player.posY, 40,40)
-                    player.posY = player.posY + player.speed // + largeur du player
+                    player.posY = player.posY + player.speed // + width player
                     
                     checkCollisionGuards(player)
 
@@ -128,19 +149,20 @@ GUARD PART
 */
 class Guard{
     constructor(posX, posY, direction, speed, skin) {
-        this.posX = posX; //Position du joueur
-        this.posY = posY;   //Position du joueur Y
-        this.direction = direction; //Direction du joueur 
-        this.speed = speed; //Vitesse du joueur
-        this.skin = skin; //Personnage
+        this.posX = posX; //x Position of guard
+        this.posY = posY;   //y Poistion of guard
+        this.direction = direction; //Player guard
+        this.speed = speed; //speed guard
+        this.skin = skin; //guad perso
         this.height = 50;
         this.width = 50;
     }
     move() {
-        
+      
         ctx.clearRect(this.posX, this.posY, 50,50)
 
         //Checking direction of cops
+
         switch (this.direction) {
             case 'up':
                 this.posY = this.posY - this.speed
@@ -193,7 +215,7 @@ class Guard{
 //Declaration of guards variable
 let guards = [
     new Guard(250, 400, 'down', 5, 'resource_pack/cop/cop_face.png'),
-    new Guard(900, 400, 'right', 10, 'resource_pack/cop/cop_right.png'),
+    new Guard(1100, 400, 'right', 10, 'resource_pack/cop/cop_right.png'),
     new Guard(700, 630, 'right', 10, 'resource_pack/cop/cop_right.png')
 ]
 
@@ -216,14 +238,16 @@ for(let i = 0; i < guards.length; i++){
 let moveGuardInterval = setInterval(moveGuards, 100)
 
 function moveGuards(){
+    
 
     //Creating of walls
-    for(let i = 0; i < walls.length; i++){
-
+    for(let i = 0; i < guards.length; i++){
+        console.log(i)
         guards[i].move()
 
         ctx.drawImage(guardsImages[i], guards[i].posX, guards[i].posY)
         guardsImages[i].src = guards[i].skin 
+        
     }
 
 }
@@ -379,6 +403,23 @@ function checkCollisionGuards(object){
          }
     } 
 }
+function checkCollisionPlayer(object){
+    // for(let i = 0; i < guards.length; i++){
+
+        //If a collision is detected
+        if (object.posX + object.width > player.posX - 20 && 
+            object.posX < player.posX  + player.width +20 &&
+            object.posY < player.posY + player.height +20 && 
+            object.posY + object.height > player.posY -20
+            ) {
+                alert('Mort')
+                init()
+            return true
+
+         }
+    // } 
+}
+
 
 //Collision with zoneObjects
 function checkCollisionZoneObjects() {
@@ -387,13 +428,14 @@ function checkCollisionZoneObjects() {
 
         zoneObjects[i].checkCollision()
 
-        //Si zone ocjet = victoire et et que collision renvoit rue alors
+        //if zone ocjet == victory and collision == true
         if(zoneObjects[i].type == 'victoryZone' && zoneObjects[i].checkCollision() == true)
         {
             alert('Vous avez gagné')
         }
 
-        //Si type objet = caméra et que collisioon alors 
+        //if zone ocjet == camera and collision == true
+
         if(zoneObjects[i].type == 'camera' && zoneObjects[i].checkCollision() == true){
 
             alert('Vous avez été repérés par une caméra')
@@ -407,23 +449,23 @@ function checkCollisionZoneObjects() {
 PAUSE STATUTS
 */
 window.addEventListener('keydown', gamePause, false)
-let counterPause = 0
+
 
 function gamePause(key) {
-    if(key.keyCode == '80'){
+    if(key.keyCode == '80' && gamePlaying){
         clearInterval(moveGuardInterval);
     gamePlaying = false
-    counterPause++
+
     }
     //console.log(counterPause)
-    if(counterPause % 2 == 0){
+    else if(key.keyCode == '80' && !gamePlaying){
         gameContinue()
-        counterPause++
+
     }
 }
 
 function gameContinue() {
-    let moveGuardInterval = setInterval(moveGuards, 100)
+    moveGuardInterval = setInterval(moveGuards, 100)
     gamePlaying = true
 }
 
@@ -431,5 +473,25 @@ function gameContinue() {
 function init(){
 
     player = new Player(70, 15, 'down', 1, 'resource_pack/carlos/carlos_face_stopover.png')
+<<<<<<< HEAD
 
 }
+=======
+}
+
+
+// function playAudio(){
+//     var audio = document.createElement('audio');
+//     audio.src = 'resource_pack/sound_effect/bg_sound.mp3';
+//     audio.style.display = "none"; //added to fix ios issue
+//     audio.autoplay = false; //avoid the user has not interacted with your page issue
+//     audio.onended = function(){
+//       audio.remove(); //remove after playing to clean the Dom
+//     };
+//     document.body.appendChild(audio);
+//   }
+
+// let audio = document.querySelector('audio')
+// canvas.addEventListener('click', audio.play())
+// checkCollisionGuards(player)
+>>>>>>> 5a4c564f735c26a1bc92dd51e2bea041ccbdfef5
