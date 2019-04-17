@@ -3,14 +3,14 @@ body{
     font-size: 62.5%;
     padding: 0;
     margin: 0;
-    background-color: aquamarine;
+    background-color: #F5F5F5;
 }
 
 .gameCenter {
     width: 1300px;
     margin-right: auto;
     margin-left: auto;
-    
+
 }
 canvas {
     background: url(../resource_pack/background/map1_withouth_cop_and_key.png);
