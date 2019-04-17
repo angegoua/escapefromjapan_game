@@ -28,7 +28,7 @@ class Player {
                 if(key.keyCode == '39'){ //KeyRight
                 
                 ctx.clearRect(player.posX, player.posY, 40,40)
-                player.posX = player.posX + player.speed // + largeur du player
+                player.posX = player.posX + player.speed
                 
                     checkCollisionGuards(player)
 
@@ -46,7 +46,7 @@ class Player {
                 else if(key.keyCode == '37'){ //KeyLeft
                 
                     ctx.clearRect(player.posX, player.posY, 40,40)
-                    player.posX = player.posX - player.speed // + largeur du player
+                    player.posX = player.posX - player.speed
                     
                     checkCollisionGuards(player)
 
@@ -66,7 +66,7 @@ class Player {
                 if(key.keyCode == '38'){ //KeyUp
                 
                     ctx.clearRect(player.posX, player.posY, 40,40)
-                    player.posY = player.posY - player.speed// + largeur du player
+                    player.posY = player.posY - player.speed
                     
                     checkCollisionGuards(player)
 
@@ -104,8 +104,7 @@ class Player {
         
                 }
             }
-        }
-            
+        }        
     }
 }
 
@@ -225,7 +224,6 @@ function moveGuards(){
         ctx.drawImage(guardsImages[i], guards[i].posX, guards[i].posY)
         guardsImages[i].src = guards[i].skin 
     }
-
 }
 
 
@@ -336,7 +334,7 @@ let zoneObjects = [
     new ZoneObject(1200, 20, 90, 100, 'camera')//First camera on the extrem right 
 ]
 
-//Creating of walls
+//Creating of zoneObjects
 for(let i = 0; i < zoneObjects.length; i++){
     zoneObjects[i].create(zoneObjects[i].posX, zoneObjects[i].posY, zoneObjects[i].width, zoneObjects[i].height, zoneObjects[i].type, zoneObjects[i].skin)
 }
@@ -434,3 +432,97 @@ function init(){
 
 }
 
+/*
+UI
+*/
+
+let UIdiv = document.querySelector('.gameDisplay')
+let gameDisplayTitle = document.querySelector('.gameDisplayTitle')
+let gameDisplayButton1 = document.querySelector('.gameDisplayButton1')
+let gameDisplayButton2 = document.querySelector('.gameDisplayButton2')
+
+//Displaying of the menu
+function uiDivDisplay(action) {
+
+    UIdiv.style.display = 'block'
+
+    if(action == 'gamePause'){
+
+        //Changing text of buttons
+        gameDisplayTitle.innerHTML = 'Paused'
+        gameDisplayButton1.innerHTML = 'Resume'
+        gameDisplayButton2.innerHTML = 'Quit'
+
+        //If the client click on the button "Paused"
+        gameDisplayButton1.addEventListener(
+            'click',
+            function(){
+                alert('On continue le jeu')
+                uiDivHide()
+            }
+        )
+
+        //If the client click on the button "Quit"
+        gameDisplayButton2.addEventListener(
+            'click',
+            function(){
+                document.location.href="index.html"
+            }
+        )
+    }
+    else if(action == 'gameLose'){
+
+        //Changing text of buttons
+        gameDisplayTitle.innerHTML = 'You lose'
+        gameDisplayButton1.innerHTML = 'Retry'
+        gameDisplayButton2.innerHTML = 'Quit'
+
+        //If the client click on the button "Retry"
+        gameDisplayButton1.addEventListener(
+            'click',
+            function(){
+                
+                //fonction qui fait recommencer le niveau
+            }
+        )
+
+        //If the client click on the button "Quit"
+        gameDisplayButton2.addEventListener(
+            'click',
+            function(){
+                document.location.href="index.html"
+            }
+        )
+    }
+    else if(action == 'gameWon'){
+
+        //Changing text of buttons
+        gameDisplayTitle.innerHTML = 'You won'
+        gameDisplayButton1.innerHTML = 'Next level'
+        gameDisplayButton2.innerHTML = 'Restart'
+
+        //If the client click on the button "Next level"
+        gameDisplayButton1.addEventListener(
+            'click',
+            function(){
+                
+                //fonction which move the player to the next level
+            }
+        )
+
+        //If the client click on the button "Restart level"
+        gameDisplayButton2.addEventListener(
+            'click',
+            function(){
+                
+                //Fonction which retry the level
+
+            }
+        )
+    }
+}
+
+//hidding of the menu
+function uiDivHide(){
+    UIdiv.style.display = 'block' 
+}
