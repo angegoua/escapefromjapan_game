@@ -205,9 +205,10 @@ button a:hover {
   margin-bottom: 45px;
 }
 .key img {
-  width: 75px;
-  height: 50px;
+  width: 55px;
+  height: 45px;
   padding-left: 35px;
+  padding-right: 20px;
 }
 .key p {
   font-family: 'VT323', monospace;
@@ -222,6 +223,56 @@ button a:hover {
 .camera p {
   font-family: 'VT323', monospace;
   font-size: 19px;
+}
+
+
+.callout {
+  position: fixed;
+  bottom: 0;
+  width: 960px;
+}
+
+.calloutContainer {
+  padding: 8px;
+  background: rgba(19, 20, 42, 0.9);
+}
+.calloutContainer p {
+  color: #fff;
+  opacity: 1;
+}
+.calloutContainer a {
+  text-decoration: none;
+  color: #1abc9c;
+}
+
+.goBtn {
+  position: absolute;
+  top: 15px;
+  right: 60px;
+  height: 35px;
+  width: 70px;
+  background: #fed330;
+  border-radius: 10px;
+  color: #000;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.goBtn:hover {
+  color: #fff;
+}
+
+.closebtn {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.closebtn:hover {
+  color: #F5F5F5;
 }
   /* END MAIN */
 
