@@ -14,6 +14,13 @@ const ctx = canvas.getContext("2d")
 const devMod = false //TO see block of wall
 let gamePlaying = true //Function used to pause the game
 let player
+const newShittySong = new Audio('resource_pack/sound_effect/bg_sound.mp3')
+document.addEventListener(
+    'keydown',
+    ()=>{
+        newShittySong.play();
+    }
+)
 
 //OBJECT PLAYER
 class Player {

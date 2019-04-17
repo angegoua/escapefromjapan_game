@@ -17,7 +17,7 @@ header {
   display: flex;
   justify-content: space-between;
   height: 40px;
-  padding: 10px 60px;
+  padding: 15px 60px;
   border-bottom: solid 5px #1abc9c;
 
 }
@@ -52,9 +52,14 @@ main h2 {
   font-size: 50px;
   font-family: 'VT323', monospace;
   margin-top: 30px;
+  margin-bottom: 30px;
 }
 
   /*SLIDER*/
+.sliderContainer img {
+  width: 458px;
+  height: 293.5px;
+}
 .container{
   width: 458px;
   margin: 0 auto;
@@ -193,17 +198,40 @@ button a:hover {
 #left {
   transform: rotate(270deg);
 }
+
+.key, .camera{
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 45px;
+}
+.key img {
+  width: 75px;
+  height: 50px;
+  padding-left: 35px;
+}
+.key p {
+  font-family: 'VT323', monospace;
+  font-size: 19px;
+}
+.camera img {
+  width: 50px;
+  height: 40px;
+  padding-left: 50px;
+  padding-right: 20px;
+}
+.camera p {
+  font-family: 'VT323', monospace;
+  font-size: 19px;
+}
   /* END MAIN */
 
   /* FOOTER */
-footer {
-  display: flex;
-}
+  footer {
+    padding: 15px;
+  }
 .footerInformation {
   display: flex;
   flex-direction: column;
-  margin: auto;
-  margin-left: 350px;
 }
 .flex-container {
   margin: auto;
@@ -226,10 +254,4 @@ footer {
 .copyright p {
   font-size: 13px;
   margin-bottom: 0;
-}
-
-footer .logoFooter img{
-  width: 100px;
-  height: auto;
-  padding-left: 60px;
 }
