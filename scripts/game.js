@@ -6,21 +6,24 @@
         WE ARE OPENED FOR REMARKS
                 THANKS *******
     _______________________________________________
+
+    _by Ange Goua & Constant Gillet_
+    github.com/angegoua
 */
 
 
 const canvas = document.querySelector('#game')
 const ctx = canvas.getContext("2d")
-const devMod = false //TO see block of wall
+const devMod = true //TO see block of wall
 let gamePlaying = true //Function used to pause the game
 let player
-// const newShittySong = new Audio('resource_pack/sound_effect/bg_sound.mp3')
-// document.addEventListener(
-//     'keydown',
-//     ()=>{
-//         newShittySong.play();
-//     }
-// )
+const newShittySong = new Audio('resource_pack/sound_effect/bg_sound.mp3')
+document.addEventListener(
+    'keydown',
+    ()=>{
+        newShittySong.play();
+    }
+)
 
 //OBJECT PLAYER
 class Player {
@@ -35,12 +38,13 @@ class Player {
         this.width = 40;
     }
     
+   
     
     // PLAYER'S MOVESAND KEYCODES ATTRIBUTION
     movePlayer(){
         window.addEventListener('keydown', move, false)
         function move(key){
-            
+             checkCollisionKeys(player)
 
             //If the game is playing
             if(gamePlaying){
@@ -51,7 +55,7 @@ class Player {
                 player.posX = player.posX + player.speed // + width player
                 
                     checkCollisionGuards(player)
-                    checkCollisionKeys(player)
+                    
                     if(checkCollision(player)) {
 
                         player.posX = player.posX - player.speed 
@@ -126,6 +130,7 @@ class Player {
             }
         }        
     }
+    
 }
 
 init()
@@ -325,10 +330,11 @@ class ZoneObject{
         this.type = type
         this.skin = skin 
     }
-    //Si on choisit de l'afficher
+    
     create(){
         
-        //Si on choisit de l'afficher
+    //To show block of wall or not
+        
         if(devMod){
 
             ctx.fillStyle = 'green'
@@ -338,10 +344,10 @@ class ZoneObject{
     }
     checkCollision(){
 
-        if (player.posX > this.posX && 
-            player.posX < this.posX + this.width - 40 &&
-            player.posY < this.posY + this.height - 40 && 
-            player.posY + player.height -40 > this.posY) {
+        if (player.posX > this.posX  && 
+            player.posX < this.posX + this.width &&
+            player.posY < this.posY + this.height  && 
+            player.posY + player.height  > this.posY) {
 
             return true
 
@@ -388,10 +394,10 @@ function checkCollisionGuards(object){
     for(let i = 0; i < guards.length; i++){
 
         //If a collision is detected
-        if (object.posX + object.width > guards[i].posX - 20 && 
-            object.posX < guards[i].posX  + guards[i].width +20 &&
-            object.posY < guards[i].posY + guards[i].height +20 && 
-            object.posY + object.height > guards[i].posY -20
+        if (object.posX + object.width > guards[i].posX - 50 && 
+            object.posX < guards[i].posX  + guards[i].width +50 &&
+            object.posY < guards[i].posY + guards[i].height +50 && 
+            object.posY + object.height > guards[i].posY -50
             ) {
                 init()
                 uiDivDisplay('gameLose')
@@ -469,21 +475,25 @@ class Key{
         this.skin = 'resource_pack/object/key.png'
     }
 }
-let keys = new Array(new Key(500, 495, 60, 50),(1200, 100, 60, 50))
+let keys = [new Key(50, 300, 60, 50),
+           new Key(1200, 100, 60, 50)]
 
 
+let imageKeys = new Array()
 
-for(let i=0; i < keys.length; i++){
-    let imageKeys = new Image()
-    
-    imageKeys.onload = function(){
-    ctx.drawImage(imageKeys, keys[i].posX, keys[i].posY, 50,50)
+//Spawning of Keys
+for(let i = 0; i < keys.length; i++){
+   
+    //Key'S CREATE
+    imageKeys[i] = new Image()
+
+    imageKeys[i].onload = function(){
+        ctx.drawImage(imageKeys[i], keys[i].posX, keys[i].posY)
+    }
+    imageKeys[i].src =keys[i].skin 
 }
-    imageKeys.src = keys.skin
- 
 
-}
-
+const keysCount =  document.querySelector('.keyCount')
 let keysNumber = 0
 function checkCollisionKeys(player){
     for(let i = 0; i < keys.length; i++){
@@ -494,14 +504,22 @@ function checkCollisionKeys(player){
             player.posY < keys[i].posY + keys[i].height  && 
             player.posY + keys[i].height > keys[i].posY 
             ) { 
-                keysNumber ++
-                alert(`You Got ${keysNumber} Keys`)
-                console.log(keysNumber)
+
+                keysNumber++
+                keysCount.innerHTML = keysNumber
+
+                ctx.clearRect(keys[i].posX, keys[i].posY, 60,50)
+                
+                
             return true
-         }
-    
+        }
+        if(keysNumber == 1){
+            keyNumberBool
+        }
     }    
 } 
+
+
 /*
 UI
 */
@@ -556,7 +574,7 @@ function uiDivDisplay(action) {
         gameDisplayButton1.addEventListener(
             'click',
             function(){
-                
+                ctx.clearRect(player.posX, player.posY, 40, 40)
                 //fonction qui fait recommencer le niveau
                 init()
 
@@ -584,7 +602,7 @@ function uiDivDisplay(action) {
         gameDisplayButton1.addEventListener(
             'click',
             function(){
-                
+                init()
                 //fonction which move the player to the next level
 
                 //Hidding the menu
@@ -615,21 +633,23 @@ function uiDivHide(){
 }
 
 
-let keysNumber = 0
-function checkCollisionKeys(player){
-    for(let i = 0; i < keys.length; i++){
 
-        //If a collision is detected
-        if (player.posX + player.width > keys[i].posX  && 
-            player.posX < keys[i].posX  + keys[i].width  &&
-            player.posY < keys[i].posY + keys[i].height  && 
-            player.posY + keys[i].height > keys[i].posY 
-            ) { 
-                keysNumber ++
-                alert(`You Got ${keysNumber} Keys`)
-                console.log(keysNumber)
-            return true
-         }
+// function checkCollisionKeys(player){
+//     for(let i = 0; i < keys.length; i++){
+
+//         //If a collision is detected
+//         if (player.posX + player.width > keys[i].posX  && 
+//             player.posX < keys[i].posX  + keys[i].width  &&
+//             player.posY < keys[i].posY + keys[i].height  && 
+//             player.posY + keys[i].height > keys[i].posY 
+//             ) { 
+//                 keysNumber ++
+//                 // alert(`You Got ${keysNumber} Keys`)
+//                 console.log(keysNumber)
+//             return true
+//          }
     
-    }    
-} 
+//     }    
+// } 
+
+checkCollisionKeys(player)
