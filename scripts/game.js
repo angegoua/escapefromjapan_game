@@ -39,7 +39,8 @@ class Player {
                     }
 
                     ctx.drawImage(image, player.posX, player.posY)
-                    image.src = 'resource_pack/carlos/gif_left.gif' 
+                    image.src = 'resource_pack/carlos/gif_left.gif'
+                    checkCollisionZoneObjects() 
 
                 }
                 else if(key.keyCode == '37'){ //KeyLeft
@@ -58,6 +59,7 @@ class Player {
                     ctx.drawImage(image, player.posX, player.posY)
                     image.src = player.skin 
                     player.skin = 'resource_pack/carlos/gif_right.gif'
+                    checkCollisionZoneObjects()
                     
                 
                 }
@@ -77,6 +79,7 @@ class Player {
                     ctx.drawImage(image, player.posX, player.posY)
                     image.src = player.skin 
                     player.skin = 'resource_pack/carlos/gif_back.gif'
+                    checkCollisionZoneObjects()
 
                     
         
@@ -97,6 +100,7 @@ class Player {
                     ctx.drawImage(image, player.posX, player.posY)
                     image.src = player.skin 
                     player.skin = 'resource_pack/carlos/gif_face.gif'
+                    checkCollisionZoneObjects()
         
                 }
             }
@@ -226,10 +230,10 @@ function moveGuards(){
 
 }
 
+
 /*
 WALL PART
 */
-
 //Wall object
 class Wall{
     constructor(posX, posY, width, height, display){
@@ -308,17 +312,34 @@ class ZoneObject{
         //Si on choisit de l'afficher
         if(devMod){
 
-            ctx.fillStyle = 'blue'
+            ctx.fillStyle = 'green'
             ctx.fillRect(this.posX, this.posY, this.width, this.height)
         }
         
     }
-    collisionTest(){
-        
+    checkCollision(){
+
+        if (player.posX + player.width > this.posX - 40 && 
+            player.posX < this.posX + this.width - 40 &&
+            player.posY < this.posY + this.height - 40 && 
+            player.posY + player.height -40 > this.posY) {
+
+            return true
+
+        }
     }
 }
 
+// Arrays of zoneObjects ZoneObject(x, y, width, height)
+let zoneObjects = [
+    new ZoneObject(1170, 660, 80, 100, 'victoryZone'),
+    new ZoneObject(0, 300, 100, 100, 'camera')
+]
 
+//Creating of walls
+for(let i = 0; i < zoneObjects.length; i++){
+    zoneObjects[i].create(zoneObjects[i].posX, zoneObjects[i].posY, zoneObjects[i].width, zoneObjects[i].height, zoneObjects[i].type, zoneObjects[i].skin)
+}
 
 /*
 COLLISIONS TESTING
@@ -359,6 +380,28 @@ function checkCollisionGuards(object){
     } 
 }
 
+//Collision with zoneObjects
+function checkCollisionZoneObjects() {
+
+    for(let i = 0; i < zoneObjects.length; i++){
+
+        zoneObjects[i].checkCollision()
+
+        //Si zone ocjet = victoire et et que collision renvoit rue alors
+        if(zoneObjects[i].type == 'victoryZone' && zoneObjects[i].checkCollision() == true)
+        {
+            alert('Vous avez gagné')
+        }
+
+        //Si type objet = caméra et que collisioon alors 
+        if(zoneObjects[i].type == 'camera' && zoneObjects[i].checkCollision() == true){
+
+            alert('Vous avez été repérés par une caméra')
+
+        }
+    }
+
+}
 /*
 PAUSE STATUTS
 */
@@ -372,7 +415,7 @@ function gamePause(key) {
     gamePlaying = false
     counterPause++
     }
-    console.log(counterPause)
+    //console.log(counterPause)
     if(counterPause % 2 == 0){
         gameContinue()
         counterPause++
