@@ -270,7 +270,7 @@ let walls = [
     new Wall(150, 85, 97, 35), // Mur entre 2 toilettes
     new Wall(1061, 0, 10, 200), // Mur gauche bureau
     new Wall(1061, 190, 182, 35), // Mur bas bureau
-    new Wall(1127, 0, 22, 110), // Bureau dans bureau
+    new Wall(1127, 0, 22, 100), // Bureau dans bureau
     new Wall(0, 450, 335,40), // Mur haut cantine
     new Wall(420, 450, 195,40), // Mur haut droite cantine
     new Wall(600, 450, 10, 120), // Mur droite petit cantine
