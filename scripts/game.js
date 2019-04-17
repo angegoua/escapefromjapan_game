@@ -14,31 +14,23 @@ const ctx = canvas.getContext("2d")
 const devMod = false //TO see block of wall
 let gamePlaying = true //Function used to pause the game
 let player
-const newShittySong = new Audio('resource_pack/sound_effect/bg_sound.mp3')
-document.addEventListener(
-    'keydown',
-    ()=>{
-        newShittySong.play();
-    }
-)
+// const newShittySong = new Audio('resource_pack/sound_effect/bg_sound.mp3')
+// document.addEventListener(
+//     'keydown',
+//     ()=>{
+//         newShittySong.play();
+//     }
+// )
 
 //OBJECT PLAYER
 class Player {
     constructor(posX, posY, direction, speed, skin) {
         
-<<<<<<< HEAD
-        this.posX = posX; //Position du joueur
-        this.posY = posY;   //Position du joueur Y
-        this.direction = direction; //Direction du joueur 
-        this.speed = 10; //Vitesse du joueur
-        this.skin = skin; //Personnage
-=======
         this.posX = posX; //player position on x
         this.posY = posY;   //player position on y
         this.direction = direction; //player direction 
         this.speed = 5; //player speed
         this.skin = skin; //player
->>>>>>> 5a4c564f735c26a1bc92dd51e2bea041ccbdfef5
         this.height = 40;
         this.width = 40;
     }
@@ -59,7 +51,7 @@ class Player {
                 player.posX = player.posX + player.speed // + width player
                 
                     checkCollisionGuards(player)
-
+                    checkCollisionKeys(player)
                     if(checkCollision(player)) {
 
                         player.posX = player.posX - player.speed 
@@ -249,7 +241,7 @@ function moveGuards(){
 
     //Creating of walls
     for(let i = 0; i < guards.length; i++){
-        console.log(i)
+        
         guards[i].move()
 
         ctx.drawImage(guardsImages[i], guards[i].posX, guards[i].posY)
@@ -478,27 +470,54 @@ function gameContinue() {
 
 
 function init(){
-
     player = new Player(70, 15, 'down', 1, 'resource_pack/carlos/carlos_face_stopover.png')
-<<<<<<< HEAD
-
-}
-=======
 }
 
 
-// function playAudio(){
-//     var audio = document.createElement('audio');
-//     audio.src = 'resource_pack/sound_effect/bg_sound.mp3';
-//     audio.style.display = "none"; //added to fix ios issue
-//     audio.autoplay = false; //avoid the user has not interacted with your page issue
-//     audio.onended = function(){
-//       audio.remove(); //remove after playing to clean the Dom
-//     };
-//     document.body.appendChild(audio);
-//   }
+/*
+CREATION OF KEYS 
+*/
 
-// let audio = document.querySelector('audio')
-// canvas.addEventListener('click', audio.play())
-// checkCollisionGuards(player)
->>>>>>> 5a4c564f735c26a1bc92dd51e2bea041ccbdfef5
+class Key{
+    constructor(posX, posY, width, height, skin){
+        this.posX = posX
+        this.posY = posY
+        this.width = width
+        this.height = height
+        this.skin = 'resource_pack/object/key.png'
+    }
+}
+let keys = new Array(new Key(500, 495, 60, 50),(1200, 100, 60, 50))
+
+
+
+for(let i=0; i < keys.length; i++){
+    let imageKeys = new Image()
+    
+    imageKeys.onload = function(){
+    ctx.drawImage(imageKeys, keys[i].posX, keys[i].posY, 50,50)
+}
+    imageKeys.src = keys.skin
+ 
+}
+
+
+
+let keysNumber = 0
+function checkCollisionKeys(player){
+    for(let i = 0; i < keys.length; i++){
+
+        //If a collision is detected
+        if (player.posX + player.width > keys[i].posX  && 
+            player.posX < keys[i].posX  + keys[i].width  &&
+            player.posY < keys[i].posY + keys[i].height  && 
+            player.posY + keys[i].height > keys[i].posY 
+            ) { 
+                keysNumber ++
+                alert(`You Got ${keysNumber} Keys`)
+                console.log(keysNumber)
+            return true
+         }
+    
+    }    
+} 
