@@ -1,6 +1,6 @@
 const canvas = document.querySelector('#game')
 const ctx = canvas.getContext("2d")
-const devMod = true //devMod qui sert à afficher un block
+const devMod = false //devMod qui sert à afficher un block
 let gamePlaying = true //Fonction used to pause the game
 
 //Objet joueur
