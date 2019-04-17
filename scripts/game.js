@@ -11,7 +11,7 @@ class Player {
         this.posX = posX; //Position du joueur
         this.posY = posY;   //Position du joueur Y
         this.direction = direction; //Direction du joueur 
-        this.speed = 5; //Vitesse du joueur
+        this.speed = 10; //Vitesse du joueur
         this.skin = skin; //Personnage
         this.height = 40;
         this.width = 40;
@@ -433,4 +433,3 @@ function init(){
     player = new Player(70, 15, 'down', 1, 'resource_pack/carlos/carlos_face_stopover.png')
 
 }
-
