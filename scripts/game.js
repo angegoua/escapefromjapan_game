@@ -26,11 +26,19 @@ document.addEventListener(
 class Player {
     constructor(posX, posY, direction, speed, skin) {
         
+<<<<<<< HEAD
+        this.posX = posX; //Position du joueur
+        this.posY = posY;   //Position du joueur Y
+        this.direction = direction; //Direction du joueur 
+        this.speed = 10; //Vitesse du joueur
+        this.skin = skin; //Personnage
+=======
         this.posX = posX; //player position on x
         this.posY = posY;   //player position on y
         this.direction = direction; //player direction 
         this.speed = 5; //player speed
         this.skin = skin; //player
+>>>>>>> 5a4c564f735c26a1bc92dd51e2bea041ccbdfef5
         this.height = 40;
         this.width = 40;
     }
@@ -472,6 +480,10 @@ function gameContinue() {
 function init(){
 
     player = new Player(70, 15, 'down', 1, 'resource_pack/carlos/carlos_face_stopover.png')
+<<<<<<< HEAD
+
+}
+=======
 }
 
 
@@ -489,3 +501,4 @@ function init(){
 // let audio = document.querySelector('audio')
 // canvas.addEventListener('click', audio.play())
 // checkCollisionGuards(player)
+>>>>>>> 5a4c564f735c26a1bc92dd51e2bea041ccbdfef5
