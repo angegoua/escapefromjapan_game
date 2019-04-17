@@ -416,7 +416,7 @@ function checkCollisionZoneObjects() {
 
         //if zone ocjet == camera and collision == true
 
-        else if(zoneObjects[i].type == 'camera' && zoneObjects[i].checkCollision() == true){
+        if(zoneObjects[i].type == 'camera' && zoneObjects[i].checkCollision() == true){
 
             uiDivDisplay('gameLose')
 
@@ -434,13 +434,13 @@ window.addEventListener('keydown', gamePause, false)
 function gamePause(key) {
     if(key.keyCode == '80' && gamePlaying){
         clearInterval(moveGuardInterval);
-    gamePlaying = false
+        gamePlaying = false
 
+        uiDivDisplay('gamePause')
     }
     //console.log(counterPause)
     else if(key.keyCode == '80' && !gamePlaying){
         gameContinue()
-
     }
 }
 
@@ -476,12 +476,15 @@ function uiDivDisplay(action) {
         gameDisplayButton1.innerHTML = 'Resume'
         gameDisplayButton2.innerHTML = 'Quit'
 
-        //If the client click on the button "Paused"
+        //If the client click on the button "Resume"
         gameDisplayButton1.addEventListener(
             'click',
             function(){
-                alert('On continue le jeu')
                 
+                if( !gamePlaying){
+                    gameContinue()
+                }
+
                 //Hidding the menu
                 uiDivHide()
             }
@@ -523,7 +526,7 @@ function uiDivDisplay(action) {
             }
         )
     }
-    else if(action == 'gameWon'){
+    else if(action == 'gameWin'){
 
         //Changing text of buttons
         gameDisplayTitle.innerHTML = 'You won'
