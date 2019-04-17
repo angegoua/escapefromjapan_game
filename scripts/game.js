@@ -29,6 +29,8 @@ class Player {
                 ctx.clearRect(player.posX, player.posY, 40,40)
                 player.posX = player.posX + player.speed // + largeur du player
                 
+                    checkCollisionGuards(player)
+
                     if(checkCollision(player)) {
 
                         player.posX = player.posX - player.speed 
@@ -44,6 +46,8 @@ class Player {
                     ctx.clearRect(player.posX, player.posY, 40,40)
                     player.posX = player.posX - player.speed // + largeur du player
                     
+                    checkCollisionGuards(player)
+
                     if(checkCollision(player)) {
 
                         player.posX = player.posX + player.speed 
@@ -61,6 +65,8 @@ class Player {
                     ctx.clearRect(player.posX, player.posY, 40,40)
                     player.posY = player.posY - player.speed// + largeur du player
                     
+                    checkCollisionGuards(player)
+
                     if(checkCollision(player)) {
 
                         player.posY = player.posY + player.speed
@@ -79,6 +85,8 @@ class Player {
                     ctx.clearRect(player.posX, player.posY, 40,40)
                     player.posY = player.posY + player.speed // + largeur du player
                     
+                    checkCollisionGuards(player)
+
                     if(checkCollision(player)) {
 
                         player.posY= player.posY - player.speed
@@ -201,8 +209,9 @@ class Guard{
 }
 
 let guards = [
-    new Guard(20, 40, 'down', 5, 'resource_pack/cop/cop_face.png'),
-    new Guard(20, 80, 'right', 10, 'resource_pack/cop/cop_face.png')
+    new Guard(250, 400, 'down', 5, 'resource_pack/cop/cop_face.png'),
+    new Guard(900, 400, 'right', 10, 'resource_pack/cop/cop_right.png'),
+    new Guard(700, 630, 'right', 10, 'resource_pack/cop/cop_right.png')
 ]
 
 let guardsImages = new Array()
@@ -211,7 +220,7 @@ let guardsImages = new Array()
 //Spawning of Guards
 for(let i = 0; i < guards.length; i++){
    
-    //PLAYER'S CREATE
+    //PGUARD'S CREATE
     guardsImages[i] = new Image()
 
     guardsImages[i].onload = function(){
@@ -251,14 +260,15 @@ let walls = [
     new Wall(150, 0, 10, 380), // Mur droit cellule
     new Wall(150, 190, 690, 40),// Mur douche
     new Wall(835, 190, 10, 300), // Mur relié à droite de mur douche
-    new Wall(835, 490, 128, 40),
-    new Wall(835, 350, 128, 40),
+    new Wall(835, 490, 128, 40), // Mur bas petit carré milieu map
+    new Wall(835, 350, 128, 40), // Mur haut petit carré milieu map
 
-    new Wall(0, 450, 335,40),
-    new Wall(420, 450, 195,40),
-    new Wall(600, 450, 10, 120),
+    new Wall(0, 450, 335,40), // Mur haut cantine
+    new Wall(420, 450, 195,40), // Mur haut droite cantine
+    new Wall(600, 450, 10, 120), 
     new Wall(80, 540,550, 25),
     new Wall(600, 630, 10, 120),
+    new Wall(1065, 580, 10, 170),
 ]
 
 //Creating of walls
@@ -283,12 +293,56 @@ function checkCollision(object){
     } 
 }
 
-function gamePause() {
-    clearInterval(moveGuardInterval);
+
+//COLLISION GUARDS AND PLAYER
+function checkCollisionGuards(object){
+    for(let i = 0; i < guards.length; i++){
+
+        //If a collision is detected
+        if (object.posX + object.width > guards[i].posX - 50 && 
+            object.posX < guards[i].posX  + guards[i].width +50 &&
+            object.posY < guards[i].posY + guards[i].height +50 && 
+            object.posY + object.height > guards[i].posY -50
+            ) {
+                alert('Mort')
+                init()
+            return true
+
+         }
+    } 
+}
+
+
+
+
+/*
+PAUSE STATUTS
+*/
+
+window.addEventListener('keydown', gamePause, false)
+let counterPause = 0
+
+function gamePause(key) {
+    if(key.keyCode == '80'){
+        clearInterval(moveGuardInterval);
     gamePlaying = false
+    counterPause++
+    }
+    console.log(counterPause)
+    if(counterPause % 2 == 0){
+        gameContinue()
+        counterPause++
+    }
 }
 
 function gameContinue() {
     let moveGuardInterval = setInterval(moveGuards, 100)
     gamePlaying = true
 }
+
+
+function init(){
+    player = new Player(70, 15, 'down', 1, 'resource_pack/carlos/carlos_face_stopover.png')
+
+}
+
