@@ -1,7 +1,8 @@
 const canvas = document.querySelector('#game')
 const ctx = canvas.getContext("2d")
-const devMod = true //devMod qui sert à afficher un block
+const devMod = false //devMod qui sert à afficher un block
 let gamePlaying = true //Fonction used to pause the game
+let player
 
 //Objet joueur
 class Player {
@@ -104,8 +105,7 @@ class Player {
     }
 }
 
-
-let player = new Player(70, 15, 'down', 1, 'resource_pack/carlos/carlos_face_stopover.png')
+init()
 
 //PLAYER'S CREATE
 let image = new Image()
@@ -120,27 +120,6 @@ image.src = player.skin
 //PLAYER'S MOVE
 player.movePlayer()
 
-//Objet mur
-class Wall{
-    constructor(posX, posY, width, height, display){
-        this.posX = posX
-        this.posY = posY
-        this.width = width
-        this.height = height
-        this.display = display
-    }
-    create(){
-        
-        //Si on choisit de l'afficher
-        if(devMod){
-
-            ctx.fillStyle = 'blue'
-            ctx.fillRect(this.posX, this.posY, this.width, this.height)
-        }
-
-        
-    }
-}
 
 /*
 GUARD PART
@@ -159,6 +138,7 @@ class Guard{
         
         ctx.clearRect(this.posX, this.posY, 50,50)
 
+        //Checking direction of cops
         switch (this.direction) {
             case 'up':
                 this.posY = this.posY - this.speed
@@ -208,14 +188,15 @@ class Guard{
     }
 }
 
+//Declaration of guards variable
 let guards = [
     new Guard(250, 400, 'down', 5, 'resource_pack/cop/cop_face.png'),
     new Guard(900, 400, 'right', 10, 'resource_pack/cop/cop_right.png'),
     new Guard(700, 630, 'right', 10, 'resource_pack/cop/cop_right.png')
 ]
 
+//Declaration of Guard image variable
 let guardsImages = new Array()
-
 
 //Spawning of Guards
 for(let i = 0; i < guards.length; i++){
@@ -229,6 +210,7 @@ for(let i = 0; i < guards.length; i++){
     guardsImages[i].src = guards[i].skin 
 }
 
+//Interval of guards which activate the function of moving
 let moveGuardInterval = setInterval(moveGuards, 100)
 
 function moveGuards(){
@@ -247,6 +229,28 @@ function moveGuards(){
 /*
 WALL PART
 */
+
+//Wall object
+class Wall{
+    constructor(posX, posY, width, height, display){
+        this.posX = posX
+        this.posY = posY
+        this.width = width
+        this.height = height
+        this.display = display
+    }
+    create(){
+        
+        //Si on choisit de l'afficher
+        if(devMod){
+
+            ctx.fillStyle = 'blue'
+            ctx.fillRect(this.posX, this.posY, this.width, this.height)
+        }
+
+        
+    }
+}
 
 // Arrays of walls Wall(x, y, width, height)
 let walls = [
@@ -276,7 +280,40 @@ for(let i = 0; i < walls.length; i++){
     walls[i].create(walls[i].posX, walls[i].posY, walls[i].width, walls[i].height)
 }
 
-//Test of collision
+/*
+zoneObject Part
+*/
+class ZoneObject{
+    constructor(posX, posY, width, height, type, skin){
+        this.posX = posX
+        this.posY = posY
+        this.width = width
+        this.height = height
+        this.type = type
+        this.skin = skin 
+    }
+    //Si on choisit de l'afficher
+    create(){
+        
+        //Si on choisit de l'afficher
+        if(devMod){
+
+            ctx.fillStyle = 'blue'
+            ctx.fillRect(this.posX, this.posY, this.width, this.height)
+        }
+        
+    }
+    collisionTest(){
+        
+    }
+}
+
+
+
+/*
+COLLISIONS TESTING
+*/
+//Test of collision with walls
 function checkCollision(object){
     for(let i = 0; i < walls.length; i++){
 
@@ -299,10 +336,10 @@ function checkCollisionGuards(object){
     for(let i = 0; i < guards.length; i++){
 
         //If a collision is detected
-        if (object.posX + object.width > guards[i].posX - 50 && 
-            object.posX < guards[i].posX  + guards[i].width +50 &&
-            object.posY < guards[i].posY + guards[i].height +50 && 
-            object.posY + object.height > guards[i].posY -50
+        if (object.posX + object.width > guards[i].posX - 20 && 
+            object.posX < guards[i].posX  + guards[i].width +20 &&
+            object.posY < guards[i].posY + guards[i].height +20 && 
+            object.posY + object.height > guards[i].posY -20
             ) {
                 alert('Mort')
                 init()
@@ -311,9 +348,6 @@ function checkCollisionGuards(object){
          }
     } 
 }
-
-
-
 
 /*
 PAUSE STATUTS
@@ -342,6 +376,7 @@ function gameContinue() {
 
 
 function init(){
+
     player = new Player(70, 15, 'down', 1, 'resource_pack/carlos/carlos_face_stopover.png')
 
 }
