@@ -133,10 +133,8 @@ image.onload = function(){
 
 image.src = player.skin 
 
-
 //PLAYER'S MOVE
 player.movePlayer()
-
 
 /*
 GUARD PART
@@ -335,7 +333,7 @@ class ZoneObject{
     }
     checkCollision(){
 
-        if (player.posX + player.width > this.posX - 40 && 
+        if (player.posX > this.posX && 
             player.posX < this.posX + this.width - 40 &&
             player.posY < this.posY + this.height - 40 && 
             player.posY + player.height -40 > this.posY) {
@@ -349,7 +347,9 @@ class ZoneObject{
 // Arrays of zoneObjects ZoneObject(x, y, width, height)
 let zoneObjects = [
     new ZoneObject(1170, 660, 80, 100, 'victoryZone'),
-    new ZoneObject(0, 300, 100, 100, 'camera')
+    new ZoneObject(10, 230, 90, 90, 'camera'),//First camera on the left
+    new ZoneObject(971, 20, 90, 90, 'camera'),//First camera on the right
+    new ZoneObject(1200, 20, 90, 100, 'camera')//First camera on the extrem right 
 ]
 
 //Creating of walls
@@ -436,10 +436,10 @@ function checkCollisionZoneObjects() {
     }
 
 }
+
 /*
 PAUSE STATUTS
 */
-
 window.addEventListener('keydown', gamePause, false)
 
 
