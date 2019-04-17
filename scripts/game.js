@@ -18,6 +18,8 @@ const devMod = true //TO see block of wall
 let gamePlaying = true //Function used to pause the game
 let player
 const newShittySong = new Audio('resource_pack/sound_effect/bg_sound.mp3')
+let skinVariation = 1
+
 document.addEventListener(
     'keydown',
     ()=>{
@@ -63,7 +65,16 @@ class Player {
                     }
 
                     ctx.drawImage(image, player.posX, player.posY)
-                    image.src = 'resource_pack/carlos/gif_left.gif'
+                    
+                    if(skinVariation == 1){
+                        player.skin = 'resource_pack/carlos/carlos_left.png'
+                        skinVariation++
+                    }
+                    else if(skinVariation == 2){
+                        player.skin = 'resource_pack/carlos/carlos_left2.png'
+                        skinVariation--
+                    }
+
                     checkCollisionZoneObjects() 
 
                 }
@@ -82,7 +93,16 @@ class Player {
 
                     ctx.drawImage(image, player.posX, player.posY)
                     image.src = player.skin 
-                    player.skin = 'resource_pack/carlos/gif_right.gif'
+                    
+                    if(skinVariation == 1){
+                        player.skin = 'resource_pack/carlos/carlos_right.png'
+                        skinVariation++
+                    }
+                    else if(skinVariation == 2){
+                        player.skin = 'resource_pack/carlos/carlos_right2.png'
+                        skinVariation--
+                    }
+                    
                     checkCollisionZoneObjects()
                     
                 
@@ -102,7 +122,16 @@ class Player {
 
                     ctx.drawImage(image, player.posX, player.posY)
                     image.src = player.skin 
-                    player.skin = 'resource_pack/carlos/gif_back.gif'
+                    
+                    if(skinVariation == 1){
+                        player.skin = 'resource_pack/carlos/carlos_back.png'
+                        skinVariation++
+                    }
+                    else if(skinVariation == 2){
+                        player.skin = 'resource_pack/carlos/carlos_back2.png'
+                        skinVariation--
+                    }
+
                     checkCollisionZoneObjects()
 
                     
@@ -123,7 +152,15 @@ class Player {
 
                     ctx.drawImage(image, player.posX, player.posY)
                     image.src = player.skin 
-                    player.skin = 'resource_pack/carlos/gif_face.gif'
+
+                    if(skinVariation == 1){
+                        player.skin = 'resource_pack/carlos/carlos_face.png'
+                        skinVariation++
+                    }
+                    else if(skinVariation == 2){
+                        player.skin = 'resource_pack/carlos/carlos_face2.png'
+                        skinVariation--
+                    }
                     checkCollisionZoneObjects()
         
                 }
