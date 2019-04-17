@@ -18,12 +18,14 @@ const devMod = true //TO see block of wall
 let gamePlaying = true //Function used to pause the game
 let player
 const newShittySong = new Audio('resource_pack/sound_effect/bg_sound.mp3')
+const newDeathGameSong = new Audio('resource_pack/sound_effect/death.mp3')
 let skinVariation = 1
 
 document.addEventListener(
     'keydown',
     ()=>{
         newShittySong.play();
+        
     }
 )
 
@@ -46,6 +48,7 @@ class Player {
     movePlayer(){
         window.addEventListener('keydown', move, false)
         function move(key){
+
              checkCollisionKeys(player)
 
             //If the game is playing
@@ -256,7 +259,8 @@ class Guard{
 let guards = [
     new Guard(250, 400, 'down', 5, 'resource_pack/cop/cop_face.png'),
     new Guard(1100, 400, 'right', 10, 'resource_pack/cop/cop_right.png'),
-    new Guard(700, 630, 'right', 10, 'resource_pack/cop/cop_right.png')
+    new Guard(700, 630, 'right', 10, 'resource_pack/cop/cop_right.png'),
+    new Guard(0, 560,'left',10,'resource_pack/cop/cop_left.png')
 ]
 
 //Declaration of Guard image variable
@@ -339,7 +343,7 @@ let walls = [
     new Wall(0, 450, 335,40), // Mur haut cantine
     new Wall(420, 450, 195,40), // Mur haut droite cantine
     new Wall(600, 450, 10, 120), // Mur droite petit cantine
-    new Wall(80, 540, 550, 25), // Longue table cantine
+    new Wall(80, 540, 550, 15), // Longue table cantine
     new Wall(600, 620, 10, 120), // Mur droite petit en bas cantine
     new Wall(1065, 580, 10, 170), // Mur gauche sortie
     new Wall(1065, 575, 140, 35), // Mur haut sortie
@@ -480,10 +484,12 @@ function gamePause(key) {
         gamePlaying = false
 
         uiDivDisplay('gamePause')
+        newShittySong.pause()
     }
     //console.log(counterPause)
     else if(key.keyCode == '80' && !gamePlaying){
         gameContinue()
+        uiDivHide()
     }
 }
 
@@ -601,9 +607,10 @@ function uiDivDisplay(action) {
         )
     }
     else if(action == 'gameLose'){
-
+        newShittySong.pause()
+        newDeathGameSong.play()
         //Changing text of buttons
-        gameDisplayTitle.innerHTML = 'You lose'
+        gameDisplayTitle.innerHTML = 'You have been Catched'
         gameDisplayButton1.innerHTML = 'Retry'
         gameDisplayButton2.innerHTML = 'Quit'
 
