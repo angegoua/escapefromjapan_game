@@ -1,6 +1,6 @@
 const canvas = document.querySelector('#game')
 const ctx = canvas.getContext("2d")
-const devMod = false //devMod qui sert à afficher un block
+const devMod = true //devMod qui sert à afficher un block
 let gamePlaying = true //Fonction used to pause the game
 let player
 
@@ -261,7 +261,7 @@ let walls = [
     new Wall(55, 610, 132, 70), //Salle à manger bas à gauche
     new Wall(250, 610, 132, 70),//Salle à manger bas à gauche 2
     new Wall(10, 190, 100, 40),//Mur porte cellule
-    new Wall(150, 0, 10, 380), // Mur droit cellule
+    new Wall(150, 0, 10, 370), // Mur droit cellule
     new Wall(150, 190, 690, 40),// Mur douche
     new Wall(835, 190, 10, 300), // Mur relié à droite de mur douche
     new Wall(835, 490, 128, 40), // Mur bas petit carré milieu map
