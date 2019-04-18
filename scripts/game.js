@@ -211,7 +211,7 @@ player.movePlayer()
 GUARD PART
 */
 class Guard{
-    constructor(posX, posY, direction, speed, skin) {
+    constructor(posX, posY, direction, speed, skin, visionZone) {
         this.posX = posX; //x Position of guard
         this.posY = posY;   //y Poistion of guard
         this.direction = direction; //Player guard
@@ -220,6 +220,7 @@ class Guard{
         this.height = 50;
         this.width = 50;
         this.skinVariation = 1
+        this.visionZone = visionZone
     }
     move() {
 
@@ -324,11 +325,11 @@ function drawPlayerImage(){
 
 //Declaration of guards variable
 let guards = [
-    new Guard(250, 400, 'down', 5, 'resource_pack/cop/cop_face.png'),
-    new Guard(1100, 400, 'right', 5, 'resource_pack/cop/cop_right.png'),
-    new Guard(700, 630, 'right', 10, 'resource_pack/cop/cop_right.png'),
-    new Guard(0, 560,'left',10,'resource_pack/cop/cop_left.png'),
-    new Guard(750, 70, 'down', 5, 'resource_pack/cop/cop_face.png')
+    new Guard(250, 400, 'down', 5, 'resource_pack/cop/cop_face.png', 20),
+    new Guard(1100, 400, 'right', 5, 'resource_pack/cop/cop_right.png', 20),
+    new Guard(700, 630, 'right', 10, 'resource_pack/cop/cop_right.png',20),
+    new Guard(0, 560,'left',10,'resource_pack/cop/cop_left.png', 20),
+    new Guard(750, 70, 'down', 5, 'resource_pack/cop/cop_face.png', 20)
 ]
 
 //Declaration of Guard image variable
@@ -387,35 +388,35 @@ class Wall{
 
 // Arrays of walls Wall(x, y, width, height)
 let walls = [
-    new Wall(0, 0, 1300, 10),//bordure haut
-    new Wall(0, 721, 1300, 10),//bordure bas
-    new Wall(0, 0, 10, 731),//bordure gauche
-    new Wall(1290, 0, 10, 731),//bordure droit
-    new Wall(55, 610, 132, 70), //Salle à manger bas à gauche
-    new Wall(250, 610, 132, 70),//Salle à manger bas à gauche 2
-    new Wall(10, 190, 100, 40),//Mur porte cellule
-    new Wall(150, 0, 10, 370), // Mur droit cellule
-    new Wall(150, 190, 690, 40),// Mur douche
-    new Wall(835, 190, 10, 300), // Mur relié à droite de mur douche
-    new Wall(835, 490, 128, 40), // Mur bas petit carré milieu map
-    new Wall(835, 350, 128, 40), // Mur haut petit carré milieu map
-    new Wall(945, 350, 20, 150), // Mur droite petit carré milieu map
-    new Wall(150, 85, 97, 35), // Mur entre 2 toilettes
-    new Wall(1061, 0, 10, 200), // Mur gauche bureau
-    new Wall(1061, 190, 182, 35), // Mur bas bureau
-    new Wall(1127, 0, 22, 100), // Bureau dans bureau
-    new Wall(0, 450, 335,40), // Mur haut cantine
-    new Wall(420, 450, 195,40), // Mur haut droite cantine
-    new Wall(600, 450, 10, 120), // Mur droite petit cantine
-    new Wall(80, 540, 550, 15), // Longue table cantine
-    new Wall(600, 620, 10, 120), // Mur droite petit en bas cantine
-    new Wall(1065, 580, 10, 170), // Mur gauche sortie
-    new Wall(1065, 575, 140, 35), // Mur haut sortie
-    new Wall(1260, 575, 30, 35), // Mur haut petit sortie
-    new Wall(10, 92, 18, 35), // Toilette cellule
-    new Wall(160, 130, 17, 35), // Toilettes bas douche
-    new Wall(160, 60, 17, 25), // Toilettes haut douche
-    new Wall(325, 425, 110, 10), //Mur renfoncement haut cantine
+    new Wall(0, 0, 1300, 10),//border Up
+    new Wall(0, 721, 1300, 10),//border down
+    new Wall(0, 0, 10, 731),//border left
+    new Wall(1290, 0, 10, 731),// border right
+    new Wall(55, 610, 132, 70), //Eating room down left
+    new Wall(250, 610, 132, 70),//Eating room down left 2
+    new Wall(10, 190, 100, 40),//wall door prison room carlos
+    new Wall(150, 0, 10, 370), // right wall door prison room carlos
+    new Wall(150, 190, 690, 40),// wall bathroom
+    new Wall(835, 190, 10, 300), //wall relied to the the at wall bathroom
+    new Wall(835, 490, 128, 40), // wall down square middle of the map
+    new Wall(835, 350, 128, 40), // wall up square middle of the map
+    new Wall(945, 350, 20, 150), // wall right square middle of the map
+    new Wall(150, 85, 97, 35), // wall between toilets
+    new Wall(1061, 0, 10, 200), // left wall desktop room
+    new Wall(1061, 190, 182, 35), // down wall desktop room
+    new Wall(1127, 0, 22, 100), // desktopp in desktop
+    new Wall(0, 450, 335,40), // wall up of cantine room
+    new Wall(420, 450, 195,40), // wall up of cantine room
+    new Wall(600, 450, 10, 120), // wall right of cantine room
+    new Wall(80, 540, 550, 15), // widther table in eating room
+    new Wall(600, 620, 10, 120), // smamll wall down of cantine room
+    new Wall(1065, 580, 10, 170), // wall left exit
+    new Wall(1065, 575, 140, 35), // wall up exit
+    new Wall(1260, 575, 30, 35), // wall left small exit
+    new Wall(10, 92, 18, 35), // toilets
+    new Wall(160, 130, 17, 35), //toilet down / bathroom
+    new Wall(160, 60, 17, 25), // toilet up right
+    new Wall(325, 425, 110, 10), //wall renforcing up eating room
 ]
 
 generateWall()
@@ -507,10 +508,10 @@ function checkCollisionGuards(object){
     for(let i = 0; i < guards.length; i++){
 
         //If a collision is detected
-        if (object.posX + object.width > guards[i].posX - 20 &&
-            object.posX < guards[i].posX  + guards[i].width +20 &&
-            object.posY < guards[i].posY + guards[i].height +20 &&
-            object.posY + object.height > guards[i].posY - 20
+        if (object.posX + object.width > guards[i].posX - guards[i].visionZone &&
+            object.posX < guards[i].posX  + guards[i].width +guards[i].visionZone &&
+            object.posY < guards[i].posY + guards[i].height +guards[i].visionZone &&
+            object.posY + object.height > guards[i].posY - guards[i].visionZone
             ) {
                 gamePlaying = false
                 uiDivDisplay('gameLose')
@@ -521,20 +522,18 @@ function checkCollisionGuards(object){
 }
 
 function checkCollisionPlayer(object){
-    // for(let i = 0; i < guards.length; i++){
-
+    for(i=0; i<guards.length; i++){ 
         //If a collision is detected
-        if (object.posX + object.width > player.posX - 20 && 
-            object.posX < player.posX  + player.width +20 &&
-            object.posY < player.posY + player.height +20 && 
-            object.posY + object.height > player.posY - 20
+        if (object.posX + object.width > player.posX - guards[i].visionZone && 
+            object.posX < player.posX  + player.width +guards[i].visionZone &&
+            object.posY < player.posY + player.height +guards[i].visionZone && 
+            object.posY + object.height > player.posY - guards[i].visionZone
             ) {
                 gamePlaying = false
                 uiDivDisplay('gameLose')
             return true
-
-         }
-    // } 
+            }
+        }    
 }
 
 //Collision with zoneObjects
@@ -694,13 +693,14 @@ function checkCollisionKeys(player){
 }
 
 //function which the message if we take a key
-function popUpMessage (message){
+function popUpMessage (){
+        
         gameMessage.style.opacity = '1' 
         setTimeout(function(){
-
         gameMessage.style.opacity = '0' 
         }, 2000
     )
+    console.log('yes')
 }
 
 //Function which load the game from the localStorage

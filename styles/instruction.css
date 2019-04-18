@@ -2,13 +2,15 @@ body{
     font-family: 'VT323', monospace;
     padding: 0;
     margin: 0;
-
 }
+
 
 .container{
     width: 760px;
     margin: 0 auto;
   }
+  /* HEADER */
+
   header, footer {
     background: #30336b;
     color: #fff;
@@ -42,6 +44,8 @@ header .logo img{
     height: auto;
   }
 
+  /* LANDING PAGE */
+  
 p.textInstructions{
     margin: 10vh 0;
     text-align: center;
@@ -79,6 +83,7 @@ div[class^="key"]:not(.keyPause):not(.keyUp){
     animation: scale 3s infinite;
 }
 
+/* ANIMATION FOR KEY BUTTON */
 
 @keyframes scale {
     from {
@@ -93,6 +98,7 @@ div[class^="key"]:not(.keyPause):not(.keyUp){
     }
   }
 
+  /* CALL TO ACTION BTTON */
   .playBtn {
     background: #1abc9c;
     text-align: center;
@@ -117,6 +123,7 @@ div[class^="key"]:not(.keyPause):not(.keyUp){
     background: #fed330;
   }
 
+  /* FOOTER */
   footer {
     padding: 15px;
     margin-top: 90px;

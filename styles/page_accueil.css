@@ -3,15 +3,15 @@ body {
   background: #F5F5F5;
   font-family: 'Roboto Slab', serif;
 }
+/* 
+HEADER
+ */
 
 header, footer {
   background: #30336b;
   color: #fff;
 }
 
-/*header p {
-  margin-top: 0;
-}*/
 
 header {
   display: flex;

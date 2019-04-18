@@ -4,7 +4,6 @@ body{
     padding: 0;
     margin: 0;
     background-color: rgb(55, 45, 78);
-    /* overflow: hidden; */
 }
 
 .gameCenter {
@@ -98,12 +97,12 @@ p{
 }
 
 .gameMessage{
+    width: 500px;
     position: relative;
     left: 878px;
     top: -81px;
-    display: none;
     opacity: 0;
-    transition: 0.5s ; 
+    transition: 0.5s; 
 }
 
 .victoryImage {
