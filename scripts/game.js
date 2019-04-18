@@ -20,6 +20,8 @@ let player
 const newShittySong = new Audio('resource_pack/sound_effect/bg_sound.mp3')
 const newDeathGameSong = new Audio('resource_pack/sound_effect/death.mp3')
 let skinVariation = 1
+const keysCount =  document.querySelector('.keyCount')
+let keysNumber = 0
 
 document.addEventListener(
     'keydown',
@@ -198,6 +200,7 @@ class Guard{
         this.skin = skin; //guad perso
         this.height = 50;
         this.width = 50;
+        this.skinVariation = 1
     }
     move() {
       
@@ -209,6 +212,16 @@ class Guard{
             case 'up':
                 this.posY = this.posY - this.speed
 
+                //Changing of skin to create an "animation"
+                if(this.skinVariation == 1){
+                    this.skin = 'resource_pack/cop/cop_back.png'
+                    this.skinVariation++
+                }
+                else if(this.skinVariation == 2){
+                    this.skin = 'resource_pack/cop/cop_back2.png'
+                    this.skinVariation--
+                }
+
                 if(checkCollision(this)) {
 
                     this.posY = this.posY + this.speed
@@ -219,6 +232,16 @@ class Guard{
                 break
             case 'down':
                 this.posY = this.posY + this.speed
+
+                //Changing of skin to create an "animation"
+                if(this.skinVariation == 1){
+                    this.skin = 'resource_pack/cop/cop_face.png'
+                    this.skinVariation++
+                }
+                else if(this.skinVariation == 2){
+                    this.skin = 'resource_pack/cop/cop_face2.png'
+                    this.skinVariation--
+                }
 
                 if(checkCollision(this)) {
 
@@ -232,6 +255,16 @@ class Guard{
                 
                 this.posX = this.posX - this.speed
 
+                //Changing of skin to create an "animation"
+                if(this.skinVariation == 1){
+                    this.skin = 'resource_pack/cop/cop_left.png'
+                    this.skinVariation++
+                }
+                else if(this.skinVariation == 2){
+                    this.skin = 'resource_pack/cop/cop_left2.png'
+                    this.skinVariation--
+                }
+
                 if(checkCollision(this)) {
 
                     this.posX = this.posX + this.speed
@@ -244,6 +277,16 @@ class Guard{
 
                 this.posX = this.posX + this.speed
 
+                //Changing of skin to create an "animation"
+                if(this.skinVariation == 1){
+                    this.skin = 'resource_pack/cop/cop_right.png'
+                    this.skinVariation++
+                }
+                else if(this.skinVariation == 2){
+                    this.skin = 'resource_pack/cop/cop_right2.png'
+                    this.skinVariation--
+                }
+
                 if(checkCollision(this)) {
 
                     this.posX = this.posX - this.speed
@@ -251,6 +294,9 @@ class Guard{
                     this.skin = 'resource_pack/cop/cop_left.png'
                 }
         }
+    }
+    movingAnimation(){
+        
     }
 }
 
@@ -282,7 +328,6 @@ let moveGuardInterval = setInterval(moveGuards, 100)
 
 function moveGuards(){
     
-
     //Creating of walls
     for(let i = 0; i < guards.length; i++){
         
@@ -455,7 +500,7 @@ function checkCollisionZoneObjects() {
         zoneObjects[i].checkCollision()
 
         //if zone ocjet == victory and collision == true
-        if(zoneObjects[i].type == 'victoryZone' && zoneObjects[i].checkCollision() == true)
+        if(zoneObjects[i].type == 'victoryZone' && zoneObjects[i].checkCollision() == true && keysCount == 3)
         {
             uiDivDisplay('gameWin')
         }
@@ -497,12 +542,13 @@ function gameContinue() {
     gamePlaying = true
 }
 
-
+//Fonction which init the game 
 function init(){
     player = new Player(70, 15, 'down', 1, 'resource_pack/carlos/carlos_face_stopover.png')
-
+    //Setting key to 0
+    keysNumber = 0
+    keysCount.innerHTML = keysNumber
 }
-
 
 /*
 CREATION OF KEYS 
@@ -515,6 +561,7 @@ class Key{
         this.width = width
         this.height = height
         this.skin = 'resource_pack/object/key.png'
+        this.pickUp = false
     }
 }
 let keys = [new Key(50, 300, 60, 50),
@@ -535,28 +582,27 @@ for(let i = 0; i < keys.length; i++){
     imageKeys[i].src =keys[i].skin 
 }
 
-const keysCount =  document.querySelector('.keyCount')
-let keysNumber = 0
 function checkCollisionKeys(player){
     for(let i = 0; i < keys.length; i++){
 
-        //If a collision is detected
+        //If a collision is detectedkeyNumberBool 
         if (player.posX + player.width > keys[i].posX  && 
             player.posX < keys[i].posX  + keys[i].width  &&
             player.posY < keys[i].posY + keys[i].height  && 
             player.posY + keys[i].height > keys[i].posY 
             ) { 
 
-                keysNumber++
-                keysCount.innerHTML = keysNumber
+                if(keys[i].pickUp == false)
+                {
+                    keysNumber++
+                    keysCount.innerHTML = keysNumber
 
-                ctx.clearRect(keys[i].posX, keys[i].posY, 60,50)
-                
-                
+                    ctx.clearRect(keys[i].posX, keys[i].posY, 60,50)
+                    
+                    keys[i].pickUp = true
+                }
+
             return true
-        }
-        if(keysNumber == 1){
-            keyNumberBool
         }
     }    
 } 
