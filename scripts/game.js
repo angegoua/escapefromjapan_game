@@ -839,5 +839,5 @@ function changeLevel(levelToLoad) {
     generateWall()
     generatingZoneObjects()
     keyCreate()
-
+    
 }
