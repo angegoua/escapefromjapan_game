@@ -799,7 +799,7 @@ function uiDivDisplay(action) {
             'click',
             function(){
 
-                //fonction which move the player to the next level
+                //function which move the player to the next level
                 currentLevel.level++
                 changeLevel(currentLevel)
 

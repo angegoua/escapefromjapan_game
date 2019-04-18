@@ -45,7 +45,7 @@ header .logo img{
   }
 
   /* LANDING PAGE */
-  
+
 p.textInstructions{
     margin: 10vh 0;
     text-align: center;
@@ -107,7 +107,6 @@ div[class^="key"]:not(.keyPause):not(.keyUp){
     color: black;
     font-size: 20px;
     text-decoration: none;
-    font-weight: bold;
     cursor: pointer;
     margin: 10px 0;
     display: block;
