@@ -45,7 +45,7 @@ header .logo img{
 p.textInstructions{
     margin: 10vh 0;
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.3rem;
 }
 .instructions{
     display: flex;
@@ -103,7 +103,7 @@ div[class^="key"]:not(.keyPause):not(.keyUp){
     text-decoration: none;
     font-weight: bold;
     cursor: pointer;
-    margin: 10px 41vw;
+    margin: 10px 0;
     display: block;
   }
 
