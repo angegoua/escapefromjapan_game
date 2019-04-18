@@ -198,6 +198,7 @@ class Guard{
         this.skin = skin; //guad perso
         this.height = 50;
         this.width = 50;
+        this.skinVariation = 1
     }
     move() {
       
@@ -209,6 +210,16 @@ class Guard{
             case 'up':
                 this.posY = this.posY - this.speed
 
+                //Changing of skin to create an "animation"
+                if(this.skinVariation == 1){
+                    this.skin = 'resource_pack/cop/cop_back.png'
+                    this.skinVariation++
+                }
+                else if(this.skinVariation == 2){
+                    this.skin = 'resource_pack/cop/cop_back2.png'
+                    this.skinVariation--
+                }
+
                 if(checkCollision(this)) {
 
                     this.posY = this.posY + this.speed
@@ -219,6 +230,16 @@ class Guard{
                 break
             case 'down':
                 this.posY = this.posY + this.speed
+
+                //Changing of skin to create an "animation"
+                if(this.skinVariation == 1){
+                    this.skin = 'resource_pack/cop/cop_face.png'
+                    this.skinVariation++
+                }
+                else if(this.skinVariation == 2){
+                    this.skin = 'resource_pack/cop/cop_face2.png'
+                    this.skinVariation--
+                }
 
                 if(checkCollision(this)) {
 
@@ -232,6 +253,16 @@ class Guard{
                 
                 this.posX = this.posX - this.speed
 
+                //Changing of skin to create an "animation"
+                if(this.skinVariation == 1){
+                    this.skin = 'resource_pack/cop/cop_left.png'
+                    this.skinVariation++
+                }
+                else if(this.skinVariation == 2){
+                    this.skin = 'resource_pack/cop/cop_left2.png'
+                    this.skinVariation--
+                }
+
                 if(checkCollision(this)) {
 
                     this.posX = this.posX + this.speed
@@ -244,6 +275,16 @@ class Guard{
 
                 this.posX = this.posX + this.speed
 
+                //Changing of skin to create an "animation"
+                if(this.skinVariation == 1){
+                    this.skin = 'resource_pack/cop/cop_right.png'
+                    this.skinVariation++
+                }
+                else if(this.skinVariation == 2){
+                    this.skin = 'resource_pack/cop/cop_right2.png'
+                    this.skinVariation--
+                }
+
                 if(checkCollision(this)) {
 
                     this.posX = this.posX - this.speed
@@ -251,6 +292,9 @@ class Guard{
                     this.skin = 'resource_pack/cop/cop_left.png'
                 }
         }
+    }
+    movingAnimation(){
+        
     }
 }
 
