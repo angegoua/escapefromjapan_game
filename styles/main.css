@@ -97,6 +97,7 @@ p{
 }
 
 .gameMessage{
+    display: block;
     width: 500px;
     position: relative;
     left: 878px;
