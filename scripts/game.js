@@ -14,14 +14,17 @@
 
 const canvas = document.querySelector('#game')
 const ctx = canvas.getContext("2d")
-const devMod = true //TO see block of wall
+const devMod = false //TO see block of wall
 let gamePlaying = true //Function used to pause the game
 let player
-const newShittySong = new Audio('resource_pack/sound_effect/bg_sound.mp3')
+const newBgSong = new Audio('resource_pack/sound_effect/bg_sound.mp3')
 const newDeathGameSong = new Audio('resource_pack/sound_effect/game_over.mp3')
 let skinVariation = 1
 const keysCount =  document.querySelector('.keyCount')
 let keysNumber = 0
+const gameMessage = document.querySelector('.gameMessage')
+const gameMessageKey = document.querySelector('.gameMessageKey')
+
 
 
 class Level{
@@ -36,7 +39,7 @@ let currentLevel = new Level(1, 'map2_whithout_cop_and_car_and_passport.png')
 document.addEventListener(
     'keydown',
     ()=>{
-        newShittySong.play();
+        newBgSong.play();
 
     }
 )
@@ -48,7 +51,7 @@ class Player {
         this.posX = posX; //player position on x
         this.posY = posY;   //player position on y
         this.direction = direction; //player direction
-        this.speed = 5; //player speed
+        this.speed =5; //player speed
         this.skin = skin; //player
         this.height = 40;
         this.width = 40;
@@ -557,7 +560,7 @@ function gamePause(key) {
         gamePlaying = false
 
         uiDivDisplay('gamePause')
-        newShittySong.pause()
+        newBgSong.pause()
     }
     //console.log(counterPause)
     else if(key.keyCode == '80' && !gamePlaying){
@@ -655,6 +658,10 @@ function checkCollisionKeys(player){
                 if(keys[i].pickUp == false)
                 {
                     keysNumber++
+                   
+                    popUpMessage()
+                        
+                    
                     keysCount.innerHTML = keysNumber
 
                     ctx.clearRect(keys[i].posX, keys[i].posY, 60,50)
@@ -665,6 +672,15 @@ function checkCollisionKeys(player){
             return true
         }
     }
+}
+
+function popUpMessage (message){
+        gameMessage.style.opacity = '1' 
+        setTimeout(function(){
+
+        gameMessage.style.opacity = '0' 
+        }, 2000
+    )
 }
 
 
@@ -712,7 +728,7 @@ function uiDivDisplay(action) {
         )
     }
     else if(action == 'gameLose'){
-        newShittySong.pause()
+        newBgSong.pause()
         newDeathGameSong.play()
         //Changing text of buttons
         gameDisplayTitle.innerHTML = 'You have been Catched'
@@ -785,6 +801,10 @@ function uiDivHide(){
     UIdiv.style.display = 'none'
 }
 
+
+/*
+NEXT LEVEL
+*/
 
 function changeLevel(levelToLoad) {
 
