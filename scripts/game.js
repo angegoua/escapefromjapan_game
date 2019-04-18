@@ -25,6 +25,7 @@ const keysCount =  document.querySelector('.keyCount')
 let keysNumber = 0
 
 
+
 class Level{
     constructor(level, background, levelName){
         this.level = level
@@ -37,6 +38,13 @@ class Level{
 }
 
 let currentLevel = new Level(1, 'map2_whithout_cop_and_car_and_passport.png', 'LEVEL 1 : ESCAPE THE PRISON')
+
+
+// if(localStorage.getItem('currentLevel') != null) {
+
+//     currentLevel.level = localStorage.getItem('currentLevel')
+//     changeLevel(currentLevel)
+// }
 
 document.addEventListener(
     'keydown',
@@ -762,7 +770,7 @@ function uiDivDisplay(action) {
                 changeLevel(currentLevel)
 
                 //Saving level to the LocalStorage
-
+                localStorage.setItem('currentLevel', currentLevel.level)
                 //Hidding the menu
                 uiDivHide()
 
@@ -783,7 +791,6 @@ function uiDivDisplay(action) {
             }
         )
     }
-
 }
 
 //hidding of the menu
@@ -872,6 +879,5 @@ function changeLevel(levelToLoad) {
     init()
     generateWall()
     generatingZoneObjects()
-    keyCreate()
-    
+    keyCreate()    
 }
