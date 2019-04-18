@@ -93,8 +93,8 @@ class Player {
 
                     }
 
-                    ctx.drawImage(image, player.posX, player.posY)
-                    image.src = player.skin
+                    //Fonction which writes the player image
+                    drawPlayerImage()
 
                     if(skinVariation == 1){
                         player.skin = 'resource_pack/carlos/carlos_left.png'
@@ -321,6 +321,12 @@ class Guard{
     }
 }
 
+//Fonction which writes the player image
+function drawPlayerImage(){
+    ctx.drawImage(image, player.posX, player.posY)
+    image.src = player.skin
+}
+
 //Declaration of guards variable
 let guards = [
     new Guard(250, 400, 'down', 5, 'resource_pack/cop/cop_face.png'),
@@ -360,7 +366,6 @@ function moveGuards(){
 
     }
 }
-
 
 /*
 WALL PART
@@ -824,6 +829,9 @@ function changeLevel(levelToLoad) {
     //Removing of all the images and sprites
     ctx.clearRect(0, 0, 1300, 731)
 
+    /*
+    LEVEL 2 
+    */
     if(levelToLoad.level == 2) {
 
         //Updating the level name
@@ -892,12 +900,16 @@ function changeLevel(levelToLoad) {
         keys = [
             new Key(130, 340, 60, 50),
             new Key(625, 620, 60, 50),
-            new Key(300, 110, 60, 50)
+            new Key(300, 110, 60, 50),
+            new Key(1248, 100, 60, 50)
         ]
     }
 
     init()
     generateWall()
     generatingZoneObjects()
-    keyCreate()    
+    keyCreate()
+
+    //Drawing the player image
+    drawPlayerImage()
 }
