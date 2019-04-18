@@ -325,7 +325,7 @@ function drawPlayerImage(){
 //Declaration of guards variable
 let guards = [
     new Guard(250, 400, 'down', 5, 'resource_pack/cop/cop_face.png'),
-    new Guard(1100, 400, 'right', 10, 'resource_pack/cop/cop_right.png'),
+    new Guard(1100, 400, 'right', 5, 'resource_pack/cop/cop_right.png'),
     new Guard(700, 630, 'right', 10, 'resource_pack/cop/cop_right.png'),
     new Guard(0, 560,'left',10,'resource_pack/cop/cop_left.png'),
     new Guard(750, 70, 'down', 5, 'resource_pack/cop/cop_face.png')
