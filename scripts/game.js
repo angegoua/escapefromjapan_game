@@ -14,7 +14,8 @@
 
 const canvas = document.querySelector('#game')
 const ctx = canvas.getContext("2d")
-const devMod = false //TO see block of wall
+const levelNameDisplay = document.querySelector('.levelNameDisplay')
+const devMod = true //TO see block of wall
 let gamePlaying = true //Function used to pause the game
 let player
 const newShittySong = new Audio('resource_pack/sound_effect/bg_sound.mp3')
@@ -22,6 +23,20 @@ const newDeathGameSong = new Audio('resource_pack/sound_effect/game_over.mp3')
 let skinVariation = 1
 const keysCount =  document.querySelector('.keyCount')
 let keysNumber = 0
+
+
+class Level{
+    constructor(level, background, levelName){
+        this.level = level
+        this.background = background
+        this.levelName = levelName
+    }
+    nameUpdate(){
+        levelNameDisplay.innerHTML = this.levelName
+    }
+}
+
+let currentLevel = new Level(1, 'map2_whithout_cop_and_car_and_passport.png', 'LEVEL 1 : ESCAPE THE PRISON')
 
 document.addEventListener(
     'keydown',
@@ -43,9 +58,7 @@ class Player {
         this.height = 40;
         this.width = 40;
     }
-
-
-
+     
     // PLAYER'S MOVESAND KEYCODES ATTRIBUTION
     movePlayer(){
         window.addEventListener('keydown', move, false)
@@ -330,7 +343,7 @@ function moveGuards(){
     for(let i = 0; i < guards.length; i++){
 
         guards[i].move()
-
+        checkCollisionPlayer(guards[i])
         ctx.drawImage(guardsImages[i], guards[i].posX, guards[i].posY)
         guardsImages[i].src = guards[i].skin
 
@@ -358,8 +371,6 @@ class Wall{
             ctx.fillStyle = 'blue'
             ctx.fillRect(this.posX, this.posY, this.width, this.height)
         }
-
-
     }
 }
 
@@ -396,9 +407,13 @@ let walls = [
     new Wall(325, 425, 110, 10), //Mur renfoncement haut cantine
 ]
 
-//Creating of walls
-for(let i = 0; i < walls.length; i++){
-    walls[i].create(walls[i].posX, walls[i].posY, walls[i].width, walls[i].height)
+generateWall()
+
+function generateWall() {
+    //Creating of walls
+    for(let i = 0; i < walls.length; i++){
+        walls[i].create(walls[i].posX, walls[i].posY, walls[i].width, walls[i].height)
+    }
 }
 
 /*
@@ -445,9 +460,14 @@ let zoneObjects = [
     new ZoneObject(1200, 20, 90, 100, 'camera')//First camera on the extrem right
 ]
 
-//Creating of zoneObjects
-for(let i = 0; i < zoneObjects.length; i++){
-    zoneObjects[i].create(zoneObjects[i].posX, zoneObjects[i].posY, zoneObjects[i].width, zoneObjects[i].height, zoneObjects[i].type, zoneObjects[i].skin)
+generatingZoneObjects()
+
+function generatingZoneObjects()
+{
+    //Creating of zoneObjects
+    for(let i = 0; i < zoneObjects.length; i++){
+        zoneObjects[i].create(zoneObjects[i].posX, zoneObjects[i].posY, zoneObjects[i].width, zoneObjects[i].height, zoneObjects[i].type, zoneObjects[i].skin)
+    }
 }
 
 /*
@@ -489,6 +509,23 @@ function checkCollisionGuards(object){
     }
 }
 
+function checkCollisionPlayer(object){
+    // for(let i = 0; i < guards.length; i++){
+
+        //If a collision is detected
+        if (object.posX + object.width > player.posX - 20 && 
+            object.posX < player.posX  + player.width +20 &&
+            object.posY < player.posY + player.height +20 && 
+            object.posY + object.height > player.posY - 20
+            ) {
+                gamePlaying = false
+                uiDivDisplay('gameLose')
+            return true
+
+         }
+    // } 
+}
+
 //Collision with zoneObjects
 function checkCollisionZoneObjects() {
 
@@ -512,14 +549,12 @@ function checkCollisionZoneObjects() {
 
         }
     }
-
 }
 
 /*
 PAUSE STATUTS
 */
 window.addEventListener('keydown', gamePause, false)
-
 
 function gamePause(key) {
     if(key.keyCode == '80' && gamePlaying){
@@ -571,8 +606,6 @@ function retry(){
         keys[i].pickUp = false
     }
 
-
-
     //Activating the game
     gamePlaying = true
 }
@@ -593,8 +626,8 @@ class Key{
 let keys = [
             new Key(50, 300, 60, 50),
             new Key(1200, 100, 60, 50),
-            new Key(50, 480, 60, 50),
-            new Key(300, 70,60,50)
+            new Key(350, 460, 60, 50),
+            new Key(250, 70,60,50)
         ]
 
 let imageKeys = new Array()
@@ -723,12 +756,17 @@ function uiDivDisplay(action) {
         gameDisplayButton1.addEventListener(
             'click',
             function(){
-                init()
+
                 //fonction which move the player to the next level
+                currentLevel.level++
+                changeLevel(currentLevel)
+
+                //Saving level to the LocalStorage
 
                 //Hidding the menu
                 uiDivHide()
 
+                gamePlaying = true
             }
         )
 
@@ -754,23 +792,86 @@ function uiDivHide(){
 }
 
 
+function changeLevel(levelToLoad) {
 
-// function checkCollisionKeys(player){
-//     for(let i = 0; i < keys.length; i++){
+    //Removing of all the images and sprites
+    ctx.clearRect(0, 0, 1300, 731)
 
-//         //If a collision is detected
-//         if (player.posX + player.width > keys[i].posX  &&
-//             player.posX < keys[i].posX  + keys[i].width  &&
-//             player.posY < keys[i].posY + keys[i].height  &&
-//             player.posY + keys[i].height > keys[i].posY
-//             ) {
-//                 keysNumber ++
-//                 // alert(`You Got ${keysNumber} Keys`)
-//                 console.log(keysNumber)
-//             return true
-//          }
+    if(levelToLoad.level == 2) {
 
-//     }
-// }
+        //Updating the level name
+        currentLevel.levelName = 'LEVEL 2: ESCAPE WITH THE PLANE'
+        currentLevel.nameUpdate()
 
-checkCollisionKeys(player)
+        levelToLoad.background = 'map2_whithout_cop_and_car_and_passport.png'
+
+        canvas.style.background = 'url(resource_pack/background/' + levelToLoad.background + ')'
+
+        walls = [
+            new Wall(0, 0, 1300, 10),//bordure haut
+            new Wall(0, 721, 1300, 10),//bordure bas
+            new Wall(0, 0, 10, 731),//bordure gauche
+            new Wall(1290, 0, 10, 731),//bordure droit
+            new Wall(205, 10, 90, 45),// Grillage pour Prison 
+            new Wall(205, 0, 10, 200),// Grillage droit sapwn
+            new Wall(0, 160, 50, 40),// Grillage bas spawn gauche
+            new Wall(95, 160, 120, 40),// Grillage bas sapwn droite
+            new Wall(0, 285, 210, 50),// Grillage haut poubelle voiture
+            new Wall(200, 285, 10, 225),// Grillage droite poubelle voiture
+            new Wall(135, 470, 75, 40),// Grillage bas droite poubelle voiture
+            new Wall(0, 470, 70, 40),// Grillage bas gauche poubelle voiture
+            new Wall(35, 320, 100, 55),// voiture entasse
+            new Wall(290, 0, 10, 200),// Grillage gauche maison haut
+            new Wall(290, 160, 790, 40),// Grillage haut + maison
+            new Wall(1070, 115, 10, 50),// Grillage droite bas maison haut
+            new Wall(1070, 0, 10, 70),// Grillage droite haut maison haut
+            new Wall(375, 90, 165, 100),// Maison gauche haut
+            new Wall(695, 70, 155, 100),// Maison droite haut
+            new Wall(300, 285, 455, 40),// Grillage haut maison milieu
+            new Wall(375, 325, 10, 75),// Gillage gauche maison milieu
+            new Wall(745, 325, 10, 75),// Gillage droite maison milieu
+            new Wall(465, 325, 165, 75),// Maison milieu
+            new Wall(840, 285, 225, 40),// Grillage gauche herbe droite milieu
+            new Wall(1135, 285, 80, 40),// Grillage droite herbe droite milieu
+            new Wall(0, 630, 70, 55),// Grillage bas gauche
+            new Wall(125, 630, 175, 55),// Grillage bas gauche 2
+            new Wall(290, 490, 10, 250),// Grillage gauche plage
+            new Wall(300, 490, 150, 55),// grillage haut gauche plage
+            new Wall(515, 490, 230, 40),// grillage haut droite plage
+            new Wall(740, 490, 10, 235),// Grillage droite plage
+            new Wall(300, 680, 450, 55),// Grillage bas plage
+            new Wall(840, 480, 10, 155),// Grillage gauche avion
+            new Wall(840, 480, 450, 35),// Grillage haut avion
+            new Wall(840, 595, 230, 40),// Grillage bas gauche avion
+            new Wall(1150, 595, 140, 40),// Grillage bas droite avion
+            new Wall(1147, 648, 15, 23),// poubelle avion 1
+            new Wall(1123, 665, 15, 23),// poubelle avion 2
+            new Wall(1136, 695, 15, 23),// poubelle avion 3
+        ]
+
+        guards = [
+            new Guard(73, 550, 'down', 5, 'resource_pack/cop/cop_face.png'),
+            new Guard(500, 550, 'down', 5, 'resource_pack/cop/cop_face.png'),
+            new Guard(580, 110, 'up', 3, 'resource_pack/cop/cop_back.png'),
+            new Guard(760, 220, 'down', 5, 'resource_pack/cop/cop_face.png')
+        ]
+
+        zoneObjects = [
+            new ZoneObject(860, 515, 200, 80, 'victoryZone'),
+            new ZoneObject(10, 10, 60, 90, 'camera'),//First camera on the left
+            new ZoneObject(1200, 33, 90, 93, 'camera'),// Camera on the top right
+        ]
+
+        keys = [
+            new Key(130, 340, 60, 50),
+            new Key(625, 620, 60, 50),
+            new Key(300, 110, 60, 50)
+        ]
+    }
+
+    init()
+    generateWall()
+    generatingZoneObjects()
+    keyCreate()
+    
+}
