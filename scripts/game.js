@@ -15,7 +15,7 @@
 const canvas = document.querySelector('#game')
 const ctx = canvas.getContext("2d")
 const levelNameDisplay = document.querySelector('.levelNameDisplay')
-const devMod = true //TO see block of wall
+const devMod = false //TO see block of wall
 let gamePlaying = true //Function used to pause the game
 let player
 const newBgSong = new Audio('resource_pack/sound_effect/bg_sound.mp3')
