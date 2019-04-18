@@ -106,3 +106,9 @@ p{
     transition: 0.5s ; 
 }
 
+.victoryImage {
+    width: 503px;
+    height: auto;
+    margin-left: 389px;
+    margin-top: -34px;
+}

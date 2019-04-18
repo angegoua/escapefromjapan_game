@@ -543,9 +543,15 @@ function checkCollisionZoneObjects() {
     for(let i = 0; i < zoneObjects.length; i++){
 
         zoneObjects[i].checkCollision()
-
+        
+        if(zoneObjects[i].type == 'victoryZone' && zoneObjects[i].checkCollision() == true && keysNumber == 4 && currentLevel.level == 2)
+        {
+            gamePlaying = false
+            uiDivDisplay('gameVictory')
+        }
+        
         //if zone ocjet == victory and collision == true
-        if(zoneObjects[i].type == 'victoryZone' && zoneObjects[i].checkCollision() == true && keysNumber == 4)
+        else if(zoneObjects[i].type == 'victoryZone' && zoneObjects[i].checkCollision() == true && keysNumber == 4)
         {
             gamePlaying = false
             uiDivDisplay('gameWin')
@@ -816,6 +822,21 @@ function uiDivDisplay(action) {
 
                 //Hidding the menu
                 uiDivHide()
+            }
+        )
+    }
+    else if(action == 'gameVictory')
+    {
+        UIdiv.innerHTML = '<h1 class="gameDisplayTitle">Carlos Is Gone</h1><img class="victoryImage" src="resource_pack/background/carlos_is_gone.gif"><h2 class="gameDisplayButton1">Quit</h2>'
+
+        //If the client click on the button "Quit"
+        gameDisplayButton1.addEventListener(
+            'click',
+            function(){
+
+                alert('Bravo !')
+                //Redirection to the index.html
+                document.location.href="index.html";
             }
         )
     }
