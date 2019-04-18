@@ -2,7 +2,7 @@ body{
     font-family: 'VT323', monospace;
     padding: 0;
     margin: 0;
-    
+
 }
 
 .container{
@@ -13,21 +13,21 @@ body{
     background: #30336b;
     color: #fff;
   }
-  
+
   header {
     display: flex;
     justify-content: space-between;
     height: 40px;
     padding: 15px 60px;
     border-bottom: solid 5px #1abc9c;
-  
+
   }
-  
+
   header .logo img{
     width: 75px;
     height: auto;
   }
-  
+
   #socialMedia{
     padding-top: 10px;
     padding-right: 110px;
@@ -64,7 +64,7 @@ div[class^="key"]{
     margin: 2vh 0;
 }
 div[class^="key"]:not(.keyPause):not(.keyUp){
-    width: 33%;   
+    width: 33%;
 }
 
 .keyPause, .keyUp{
@@ -79,22 +79,12 @@ div[class^="key"]:not(.keyPause):not(.keyUp){
     animation: scale 3s infinite;
 }
 
-/* @keyframes scale {
-    0%{
-        transform: scale(100)
-    }
-    50%{
-        transform: scale(0%)
-    }
-    100%{
-        transform: scale(100%)
-    }
-} */
+
 @keyframes scale {
     from {
         transform: scale(1)
     }
-  
+
     50% {
         transform: scale(1.2)
     }
@@ -104,27 +94,27 @@ div[class^="key"]:not(.keyPause):not(.keyUp){
   }
 
   .playBtn {
-    background: #fed330;
+    background: #1abc9c;
     text-align: center;
-    padding: 7px 13px;
-    border-radius: 10px;
+    padding: 10px 1px;
+    border-radius: 5px;
     color: black;
     font-size: 20px;
     text-decoration: none;
     font-weight: bold;
     cursor: pointer;
-    margin: 10px 46vw;
+    margin: 10px 41vw;
     display: block;
   }
-  
+
   .playBtn:hover {
     background: #f39c12;
     transition: 0.2s ease;
     color: white;
   }
-  
+
   .playBtnLocal{
-    background: #1abc9c;
+    background: #fed330;
   }
 
   footer {
@@ -141,7 +131,7 @@ div[class^="key"]:not(.keyPause):not(.keyUp){
     display: flex;
     justify-content: space-around;
   }
-  
+
   .flex-container a{
     color: #fff;
     text-decoration: none;
@@ -149,7 +139,7 @@ div[class^="key"]:not(.keyPause):not(.keyUp){
   .flex-container a:hover{
     color: #f9ca24;
   }
-  
+
   .copyright{
     text-align: center;
   }
