@@ -6,21 +6,26 @@
         WE ARE OPENED FOR REMARKS
                 THANKS *******
     _______________________________________________
+
+    _by Ange Goua & Constant Gillet_
+    github.com/angegoua
 */
 
 
 const canvas = document.querySelector('#game')
 const ctx = canvas.getContext("2d")
-const devMod = false //TO see block of wall
+const devMod = true //TO see block of wall
 let gamePlaying = true //Function used to pause the game
 let player
 const newShittySong = new Audio('resource_pack/sound_effect/bg_sound.mp3')
+const newDeathGameSong = new Audio('resource_pack/sound_effect/death.mp3')
 let skinVariation = 1
 
 document.addEventListener(
     'keydown',
     ()=>{
         newShittySong.play();
+        
     }
 )
 
@@ -37,12 +42,14 @@ class Player {
         this.width = 40;
     }
     
+   
     
     // PLAYER'S MOVESAND KEYCODES ATTRIBUTION
     movePlayer(){
         window.addEventListener('keydown', move, false)
         function move(key){
-            
+
+             checkCollisionKeys(player)
 
             //If the game is playing
             if(gamePlaying){
@@ -53,7 +60,7 @@ class Player {
                 player.posX = player.posX + player.speed // + width player
                 
                     checkCollisionGuards(player)
-
+                    
                     if(checkCollision(player)) {
 
                         player.posX = player.posX - player.speed 
@@ -61,6 +68,7 @@ class Player {
                     }
 
                     ctx.drawImage(image, player.posX, player.posY)
+                    image.src = player.skin 
                     
                     if(skinVariation == 1){
                         player.skin = 'resource_pack/carlos/carlos_left.png'
@@ -129,9 +137,7 @@ class Player {
                     }
 
                     checkCollisionZoneObjects()
-
-                    
-        
+                           
                 }
                 else if(key.keyCode == '40'){ //KeyDown
                 
@@ -163,6 +169,7 @@ class Player {
             }
         }        
     }
+    
 }
 
 init()
@@ -251,7 +258,8 @@ class Guard{
 let guards = [
     new Guard(250, 400, 'down', 5, 'resource_pack/cop/cop_face.png'),
     new Guard(1100, 400, 'right', 10, 'resource_pack/cop/cop_right.png'),
-    new Guard(700, 630, 'right', 10, 'resource_pack/cop/cop_right.png')
+    new Guard(700, 630, 'right', 10, 'resource_pack/cop/cop_right.png'),
+    new Guard(0, 560,'left',10,'resource_pack/cop/cop_left.png')
 ]
 
 //Declaration of Guard image variable
@@ -277,7 +285,7 @@ function moveGuards(){
 
     //Creating of walls
     for(let i = 0; i < guards.length; i++){
-        console.log(i)
+        
         guards[i].move()
 
         ctx.drawImage(guardsImages[i], guards[i].posX, guards[i].posY)
@@ -334,7 +342,7 @@ let walls = [
     new Wall(0, 450, 335,40), // Mur haut cantine
     new Wall(420, 450, 195,40), // Mur haut droite cantine
     new Wall(600, 450, 10, 120), // Mur droite petit cantine
-    new Wall(80, 540, 550, 25), // Longue table cantine
+    new Wall(80, 540, 550, 15), // Longue table cantine
     new Wall(600, 620, 10, 120), // Mur droite petit en bas cantine
     new Wall(1065, 580, 10, 170), // Mur gauche sortie
     new Wall(1065, 575, 140, 35), // Mur haut sortie
@@ -362,10 +370,11 @@ class ZoneObject{
         this.type = type
         this.skin = skin 
     }
-    //Si on choisit de l'afficher
+    
     create(){
         
-        //Si on choisit de l'afficher
+    //To show block of wall or not
+        
         if(devMod){
 
             ctx.fillStyle = 'green'
@@ -378,7 +387,7 @@ class ZoneObject{
         if (player.posX > this.posX && 
             player.posX < this.posX + this.width - 40 &&
             player.posY < this.posY + this.height - 40 && 
-            player.posY + player.height -40 > this.posY) {
+            player.posY + player.height - 40 > this.posY) {
 
             return true
 
@@ -428,7 +437,7 @@ function checkCollisionGuards(object){
         if (object.posX + object.width > guards[i].posX - 20 && 
             object.posX < guards[i].posX  + guards[i].width +20 &&
             object.posY < guards[i].posY + guards[i].height +20 && 
-            object.posY + object.height > guards[i].posY -20
+            object.posY + object.height > guards[i].posY - 20
             ) {
                 init()
                 uiDivDisplay('gameLose')
@@ -474,10 +483,12 @@ function gamePause(key) {
         gamePlaying = false
 
         uiDivDisplay('gamePause')
+        newShittySong.pause()
     }
     //console.log(counterPause)
     else if(key.keyCode == '80' && !gamePlaying){
         gameContinue()
+        uiDivHide()
     }
 }
 
@@ -488,9 +499,68 @@ function gameContinue() {
 
 
 function init(){
-
     player = new Player(70, 15, 'down', 1, 'resource_pack/carlos/carlos_face_stopover.png')
+
 }
+
+
+/*
+CREATION OF KEYS 
+*/
+
+class Key{
+    constructor(posX, posY, width, height, skin){
+        this.posX = posX
+        this.posY = posY
+        this.width = width
+        this.height = height
+        this.skin = 'resource_pack/object/key.png'
+    }
+}
+let keys = [new Key(50, 300, 60, 50),
+           new Key(1200, 100, 60, 50)]
+
+
+let imageKeys = new Array()
+
+//Spawning of Keys
+for(let i = 0; i < keys.length; i++){
+   
+    //Key'S CREATE
+    imageKeys[i] = new Image()
+
+    imageKeys[i].onload = function(){
+        ctx.drawImage(imageKeys[i], keys[i].posX, keys[i].posY)
+    }
+    imageKeys[i].src =keys[i].skin 
+}
+
+const keysCount =  document.querySelector('.keyCount')
+let keysNumber = 0
+function checkCollisionKeys(player){
+    for(let i = 0; i < keys.length; i++){
+
+        //If a collision is detected
+        if (player.posX + player.width > keys[i].posX  && 
+            player.posX < keys[i].posX  + keys[i].width  &&
+            player.posY < keys[i].posY + keys[i].height  && 
+            player.posY + keys[i].height > keys[i].posY 
+            ) { 
+
+                keysNumber++
+                keysCount.innerHTML = keysNumber
+
+                ctx.clearRect(keys[i].posX, keys[i].posY, 60,50)
+                
+                
+            return true
+        }
+        if(keysNumber == 1){
+            keyNumberBool
+        }
+    }    
+} 
+
 
 /*
 UI
@@ -536,9 +606,10 @@ function uiDivDisplay(action) {
         )
     }
     else if(action == 'gameLose'){
-
+        newShittySong.pause()
+        newDeathGameSong.play()
         //Changing text of buttons
-        gameDisplayTitle.innerHTML = 'You lose'
+        gameDisplayTitle.innerHTML = 'You have been Catched'
         gameDisplayButton1.innerHTML = 'Retry'
         gameDisplayButton2.innerHTML = 'Quit'
 
@@ -546,7 +617,7 @@ function uiDivDisplay(action) {
         gameDisplayButton1.addEventListener(
             'click',
             function(){
-                
+                ctx.clearRect(player.posX, player.posY, 40, 40)
                 //fonction qui fait recommencer le niveau
                 init()
 
@@ -574,7 +645,7 @@ function uiDivDisplay(action) {
         gameDisplayButton1.addEventListener(
             'click',
             function(){
-                
+                init()
                 //fonction which move the player to the next level
 
                 //Hidding the menu
@@ -596,6 +667,7 @@ function uiDivDisplay(action) {
             }
         )
     }
+
 }
 
 //hidding of the menu
@@ -603,17 +675,24 @@ function uiDivHide(){
     UIdiv.style.display = 'none' 
 }
 
-// function playAudio(){
-//     var audio = document.createElement('audio');
-//     audio.src = 'resource_pack/sound_effect/bg_sound.mp3';
-//     audio.style.display = "none"; //added to fix ios issue
-//     audio.autoplay = false; //avoid the user has not interacted with your page issue
-//     audio.onended = function(){
-//       audio.remove(); //remove after playing to clean the Dom
-//     };
-//     document.body.appendChild(audio);
-//   }
 
-// let audio = document.querySelector('audio')
-// canvas.addEventListener('click', audio.play())
-// checkCollisionGuards(player)
+
+// function checkCollisionKeys(player){
+//     for(let i = 0; i < keys.length; i++){
+
+//         //If a collision is detected
+//         if (player.posX + player.width > keys[i].posX  && 
+//             player.posX < keys[i].posX  + keys[i].width  &&
+//             player.posY < keys[i].posY + keys[i].height  && 
+//             player.posY + keys[i].height > keys[i].posY 
+//             ) { 
+//                 keysNumber ++
+//                 // alert(`You Got ${keysNumber} Keys`)
+//                 console.log(keysNumber)
+//             return true
+//          }
+    
+//     }    
+// } 
+
+checkCollisionKeys(player)
