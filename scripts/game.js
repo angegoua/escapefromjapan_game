@@ -7,10 +7,13 @@
                 THANKS *******
     _______________________________________________
 
-    _by Ange Goua & Constant Gillet_
-    github.com/angegoua
+    _by 
+    Constant Gillet - Developper
+    Catinca Gheorghiu - Developper & Designer
+    Nathan Grigné - Designer
+    Ange René Goua - Developper
+    Johann Givre - Designer
 */
-
 
 const canvas = document.querySelector('#game')
 const ctx = canvas.getContext("2d")
@@ -26,9 +29,9 @@ let keysNumber = 0
 const gameMessage = document.querySelector('.gameMessage')
 const gameMessageKey = document.querySelector('.gameMessageKey')
 
-
-
-
+/*
+LEVEL CLASS
+*/
 class Level{
     constructor(level, background, levelName){
         this.level = level
