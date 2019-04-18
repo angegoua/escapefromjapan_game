@@ -385,10 +385,10 @@ class ZoneObject{
     }
     checkCollision(){
 
-        if (player.posX > this.posX  && 
-            player.posX < this.posX + this.width &&
-            player.posY < this.posY + this.height  && 
-            player.posY + player.height  > this.posY) {
+        if (player.posX > this.posX && 
+            player.posX < this.posX + this.width - 40 &&
+            player.posY < this.posY + this.height - 40 && 
+            player.posY + player.height - 40 > this.posY) {
 
             return true
 
