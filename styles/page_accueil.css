@@ -40,6 +40,8 @@ header .logo img{
 p {
   margin-top: 10px;
   font-size: 16px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 main {
   margin-top: 40px;
@@ -140,13 +142,12 @@ h4 a{
   color: #30336b;
 }
 button {
-  margin-top: 17px;
+  margin-bottom: 10px;
   height: 50px;
   width: 200px;
   background: #fed330;
   border: none;
   border-radius: 10px;
-  text-decoration: none;
   color: black;
   font-size: 20px;
   font-weight: bold;
