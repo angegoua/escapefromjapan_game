@@ -68,6 +68,7 @@ class Player {
                     }
 
                     ctx.drawImage(image, player.posX, player.posY)
+                    image.src = player.skin 
                     
                     if(skinVariation == 1){
                         player.skin = 'resource_pack/carlos/carlos_left.png'
@@ -136,9 +137,7 @@ class Player {
                     }
 
                     checkCollisionZoneObjects()
-
-                    
-        
+                           
                 }
                 else if(key.keyCode == '40'){ //KeyDown
                 
