@@ -703,7 +703,7 @@ function popUpMessage (message){
 
 
 /*
-UI
+UI ELEMENTS & EVENTS
 */
 
 let UIdiv = document.querySelector('.gameDisplay')
@@ -749,7 +749,7 @@ function uiDivDisplay(action) {
         newBgSong.pause()
         newDeathGameSong.play()
         //Changing text of buttons
-        gameDisplayTitle.innerHTML = 'You have been Catched'
+        gameDisplayTitle.innerHTML = 'You have been Caught'
         gameDisplayButton1.innerHTML = 'Retry'
         gameDisplayButton2.innerHTML = 'Quit'
 
@@ -818,7 +818,6 @@ function uiDivDisplay(action) {
 function uiDivHide(){
     UIdiv.style.display = 'none'
 }
-
 
 /*
 NEXT LEVEL
