@@ -101,5 +101,8 @@ p{
     position: relative;
     left: 878px;
     top: -81px;
+    /* display: none; */
+    opacity: 0;
+    transition: 0.5s ; 
 }
 
