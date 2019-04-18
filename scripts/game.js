@@ -49,7 +49,6 @@ document.addEventListener(
     'keydown',
     ()=>{
         newBgSong.play();
-
     }
 )
 
