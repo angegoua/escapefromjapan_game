@@ -45,7 +45,7 @@
         </div>
     </div>
     <a href="play.html" class="playBtn">Continue</a>
-    <a href="play.html" class="playBtnLocal">Start a new game</a>
+    <a href="play.html" onclick="startNewGame()" class="playBtnLocal">Start a new game</a>
     <footer>
         <div class="footerInformation">
             <div class="flex-container">
@@ -58,5 +58,12 @@
         </div>
     </footer>
     <!-- <script src="scripts/game.js"></script> -->
+    <script>
+        function startNewGame(){
+            //Removing player data
+            localStorage.removeItem('currentLevel')
+            document.location.href="play.html"; 
+        }
+    </script>
 </body>
 </html>
