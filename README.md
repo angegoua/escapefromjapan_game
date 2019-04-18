@@ -13,6 +13,8 @@ A Javascript platform game created by Hetic Students for a "project" week.
 The goal of this game is to take keys on the map. After taking all the keys you will leave the prison. Be carreful of prison guards and cameras ! 
 
 ## Screenshots
+![Game Opening](https://github.com/angegoua/escapefromjapan_game/blob/master/images/page_accueil/example1.png)
+![First Level](https://github.com/angegoua/escapefromjapan_game/blob/master/images/page_accueil/example2.png)
 
 ## Controls
 ```
