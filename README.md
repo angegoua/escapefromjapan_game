@@ -1,4 +1,5 @@
 # escapefromjapan_game
+![Game Opening](https://zupimages.net/up/19/16/pa3w.jpg)
 
 A Javascript platform game created by Hetic Students for a "project" week.
 ## Autors:
@@ -13,6 +14,8 @@ A Javascript platform game created by Hetic Students for a "project" week.
 The goal of this game is to take keys on the map. After taking all the keys you will leave the prison. Be carreful of prison guards and cameras ! 
 
 ## Screenshots
+![First Level](https://zupimages.net/up/19/16/5wrx.png)
+![Carlos Ghosn](https://zupimages.net/up/19/16/s85n.jpg)
 
 ## Controls
 ```

@@ -295,9 +295,6 @@ class Guard{
                 }
         }
     }
-    movingAnimation(){
-        
-    }
 }
 
 //Declaration of guards variable
@@ -425,7 +422,6 @@ class ZoneObject{
             ctx.fillStyle = 'green'
             ctx.fillRect(this.posX, this.posY, this.width, this.height)
         }
-        
     }
     checkCollision(){
 
@@ -484,7 +480,7 @@ function checkCollisionGuards(object){
             object.posY < guards[i].posY + guards[i].height +20 && 
             object.posY + object.height > guards[i].posY - 20
             ) {
-                init()
+                gamePlaying = false
                 uiDivDisplay('gameLose')
             return true
 
@@ -502,6 +498,7 @@ function checkCollisionZoneObjects() {
         //if zone ocjet == victory and collision == true
         if(zoneObjects[i].type == 'victoryZone' && zoneObjects[i].checkCollision() == true && keysCount == 3)
         {
+            gamePlaying = false
             uiDivDisplay('gameWin')
         }
 
@@ -509,6 +506,7 @@ function checkCollisionZoneObjects() {
 
         if(zoneObjects[i].type == 'camera' && zoneObjects[i].checkCollision() == true){
 
+            gamePlaying = false
             uiDivDisplay('gameLose')
 
         }
@@ -550,6 +548,33 @@ function init(){
     keysCount.innerHTML = keysNumber
 }
 
+//Function which re init the game
+function retry(){
+
+    //Re init of player info
+    player.posX = 70
+    player.posY = 15
+    player.direction = 'down'
+    player.skin = 'resource_pack/carlos/carlos_face_stopover.png'
+
+    ctx.drawImage(image, player.posX, player.posY)
+    image.src = player.skin 
+
+    //Setting key to 0
+    keysNumber = 0
+    keysCount.innerHTML = keysNumber
+
+    keyCreate()
+
+    for(let i = 0; i < keys.length; i++){
+        keys[i].pickUp = false
+    }
+
+
+
+    //Activating the game
+    gamePlaying = true
+}
 /*
 CREATION OF KEYS 
 */
@@ -570,18 +595,21 @@ let keys = [new Key(50, 300, 60, 50),
 
 let imageKeys = new Array()
 
+keyCreate()
 //Spawning of Keys
-for(let i = 0; i < keys.length; i++){
-   
-    //Key'S CREATE
-    imageKeys[i] = new Image()
+function keyCreate(){
+    
+    for(let i = 0; i < keys.length; i++){
+    
+        //Key'S CREATE
+        imageKeys[i] = new Image()
 
-    imageKeys[i].onload = function(){
-        ctx.drawImage(imageKeys[i], keys[i].posX, keys[i].posY)
+        imageKeys[i].onload = function(){
+            ctx.drawImage(imageKeys[i], keys[i].posX, keys[i].posY)
+        }
+        imageKeys[i].src =keys[i].skin 
     }
-    imageKeys[i].src =keys[i].skin 
 }
-
 function checkCollisionKeys(player){
     for(let i = 0; i < keys.length; i++){
 
@@ -665,7 +693,7 @@ function uiDivDisplay(action) {
             function(){
                 ctx.clearRect(player.posX, player.posY, 40, 40)
                 //fonction qui fait recommencer le niveau
-                init()
+                retry()
 
                 //Hidding the menu
                 uiDivHide()
@@ -706,7 +734,7 @@ function uiDivDisplay(action) {
             function(){
                 
                 //Fonction which retry the level
-                init()
+                retry()
 
                 //Hidding the menu
                 uiDivHide()
