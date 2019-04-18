@@ -14,7 +14,7 @@
 
 const canvas = document.querySelector('#game')
 const ctx = canvas.getContext("2d")
-const devMod = true //TO see block of wall
+const devMod = false //TO see block of wall
 let gamePlaying = true //Function used to pause the game
 let player
 const newShittySong = new Audio('resource_pack/sound_effect/bg_sound.mp3')
@@ -423,7 +423,6 @@ class ZoneObject{
             ctx.fillStyle = 'green'
             ctx.fillRect(this.posX, this.posY, this.width, this.height)
         }
-        
     }
     checkCollision(){
 
@@ -567,6 +566,12 @@ function retry(){
     keysCount.innerHTML = keysNumber
 
     keyCreate()
+
+    for(let i = 0; i < keys.length; i++){
+        keys[i].pickUp = false
+    }
+
+
 
     //Activating the game
     gamePlaying = true
