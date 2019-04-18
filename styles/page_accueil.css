@@ -146,22 +146,20 @@ button {
   background: #fed330;
   border: none;
   border-radius: 10px;
-}
-
-button a{
   text-decoration: none;
   color: black;
   font-size: 20px;
   font-weight: bold;
+  cursor: pointer;
 }
+
 
 button:hover{
   background: #f39c12;
-  transition: 0.4s ease;
-}
-button a:hover {
+  transition: 0.2s ease;
   color: white;
 }
+
 
 .instructions{
   font-size: 14px;
@@ -199,7 +197,7 @@ button a:hover {
   transform: rotate(270deg);
 }
 
-.key, .camera{
+.key, .camera, .pause{
   display: flex;
   justify-content: flex-start;
   margin-bottom: 45px;
@@ -225,6 +223,15 @@ button a:hover {
   font-size: 19px;
 }
 
+.pause h4{
+  font-size: 35px;
+  padding-left: 60px;
+  padding-right: 30px;
+}
+.pause p {
+  font-family: 'VT323', monospace;
+  font-size: 19px;
+}
 
 .callout {
   position: fixed;
@@ -237,6 +244,7 @@ button a:hover {
   background: rgba(19, 20, 42, 0.9);
 }
 .calloutContainer p {
+  padding-left: 25px;
   color: #fff;
   opacity: 1;
 }
@@ -247,10 +255,11 @@ button a:hover {
 
 .goBtn {
   position: absolute;
-  top: 15px;
   right: 60px;
   height: 35px;
-  width: 70px;
+  padding-top: 6px;
+  padding-left: 22px;
+  width: 60px;
   background: #fed330;
   border-radius: 10px;
   color: #000;
@@ -264,10 +273,10 @@ button a:hover {
 
 .closebtn {
   position: absolute;
-  top: 5px;
+  top: 14px;
   right: 15px;
   color: #fff;
-  font-size: 20px;
+  font-size: 22px;
   cursor: pointer;
 }
 
