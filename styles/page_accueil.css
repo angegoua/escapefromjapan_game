@@ -212,6 +212,7 @@ h4 a{
 .key p {
   font-family: 'VT323', monospace;
   font-size: 19px;
+  padding-top: 5px;
 }
 .camera img {
   width: 50px;
@@ -222,6 +223,7 @@ h4 a{
 .camera p {
   font-family: 'VT323', monospace;
   font-size: 19px;
+  padding-top: 5px;
 }
 
 .pause h4{
@@ -232,6 +234,7 @@ h4 a{
 .pause p {
   font-family: 'VT323', monospace;
   font-size: 19px;
+  padding-top: 5px;
 }
 
 .callout {
