@@ -42,13 +42,6 @@ class Level{
 
 let currentLevel = new Level(1, 'map2_whithout_cop_and_car_and_passport.png', 'LEVEL 1 : ESCAPE THE PRISON')
 
-
-// if(localStorage.getItem('currentLevel') != null) {
-
-//     currentLevel.level = localStorage.getItem('currentLevel')
-//     changeLevel(currentLevel)
-// }
-
 document.addEventListener(
     'keydown',
     ()=>{
@@ -692,6 +685,7 @@ function checkCollisionKeys(player){
     }
 }
 
+//function which the message if we take a key
 function popUpMessage (message){
         gameMessage.style.opacity = '1' 
         setTimeout(function(){
@@ -701,6 +695,17 @@ function popUpMessage (message){
     )
 }
 
+//Function which load the game from the localStorage
+function loadGame(){
+    if(localStorage.getItem('currentLevel') != null) {
+
+        currentLevel.level = localStorage.getItem('currentLevel')
+        changeLevel(currentLevel)
+    }
+}
+
+//Loadigng a game from the localstorage
+loadGame()
 
 /*
 UI ELEMENTS & EVENTS
