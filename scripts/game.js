@@ -42,13 +42,6 @@ class Level{
 
 let currentLevel = new Level(1, 'map2_whithout_cop_and_car_and_passport.png', 'LEVEL 1 : ESCAPE THE PRISON')
 
-
-// if(localStorage.getItem('currentLevel') != null) {
-
-//     currentLevel.level = localStorage.getItem('currentLevel')
-//     changeLevel(currentLevel)
-// }
-
 document.addEventListener(
     'keydown',
     ()=>{
@@ -92,8 +85,8 @@ class Player {
 
                     }
 
-                    ctx.drawImage(image, player.posX, player.posY)
-                    image.src = player.skin
+                    //Fonction which writes the player image
+                    drawPlayerImage()
 
                     if(skinVariation == 1){
                         player.skin = 'resource_pack/carlos/carlos_left.png'
@@ -320,6 +313,12 @@ class Guard{
     }
 }
 
+//Fonction which writes the player image
+function drawPlayerImage(){
+    ctx.drawImage(image, player.posX, player.posY)
+    image.src = player.skin
+}
+
 //Declaration of guards variable
 let guards = [
     new Guard(250, 400, 'down', 5, 'resource_pack/cop/cop_face.png'),
@@ -359,7 +358,6 @@ function moveGuards(){
 
     }
 }
-
 
 /*
 WALL PART
@@ -686,6 +684,7 @@ function checkCollisionKeys(player){
     }
 }
 
+//function which the message if we take a key
 function popUpMessage (message){
         gameMessage.style.opacity = '1' 
         setTimeout(function(){
@@ -695,9 +694,20 @@ function popUpMessage (message){
     )
 }
 
+//Function which load the game from the localStorage
+function loadGame(){
+    if(localStorage.getItem('currentLevel') != null) {
+
+        currentLevel.level = localStorage.getItem('currentLevel')
+        changeLevel(currentLevel)
+    }
+}
+
+//Loadigng a game from the localstorage
+loadGame()
 
 /*
-UI
+UI ELEMENTS & EVENTS
 */
 
 let UIdiv = document.querySelector('.gameDisplay')
@@ -743,7 +753,7 @@ function uiDivDisplay(action) {
         newBgSong.pause()
         newDeathGameSong.play()
         //Changing text of buttons
-        gameDisplayTitle.innerHTML = 'You have been Catched'
+        gameDisplayTitle.innerHTML = 'You have been Caught'
         gameDisplayButton1.innerHTML = 'Retry'
         gameDisplayButton2.innerHTML = 'Quit'
 
@@ -813,7 +823,6 @@ function uiDivHide(){
     UIdiv.style.display = 'none'
 }
 
-
 /*
 NEXT LEVEL
 */
@@ -823,6 +832,9 @@ function changeLevel(levelToLoad) {
     //Removing of all the images and sprites
     ctx.clearRect(0, 0, 1300, 731)
 
+    /*
+    LEVEL 2 
+    */
     if(levelToLoad.level == 2) {
 
         //Updating the level name
@@ -877,9 +889,10 @@ function changeLevel(levelToLoad) {
 
         guards = [
             new Guard(73, 550, 'down', 5, 'resource_pack/cop/cop_face.png'),
-            new Guard(500, 550, 'down', 5, 'resource_pack/cop/cop_face.png'),
+            new Guard(500, 550, 'down', 3, 'resource_pack/cop/cop_face.png'),
             new Guard(580, 110, 'up', 3, 'resource_pack/cop/cop_back.png'),
-            new Guard(760, 220, 'down', 5, 'resource_pack/cop/cop_face.png')
+            new Guard(760, 220, 'down', 5, 'resource_pack/cop/cop_face.png'),
+            new Guard(940, 30, 'down', 5, 'resource_pack/cop/cop_face.png')
         ]
 
         zoneObjects = [
@@ -891,12 +904,16 @@ function changeLevel(levelToLoad) {
         keys = [
             new Key(130, 340, 60, 50),
             new Key(625, 620, 60, 50),
-            new Key(300, 110, 60, 50)
+            new Key(300, 110, 60, 50),
+            new Key(1248, 100, 60, 50)
         ]
     }
 
     init()
     generateWall()
     generatingZoneObjects()
-    keyCreate()    
+    keyCreate()
+
+    //Drawing the player image
+    drawPlayerImage()
 }

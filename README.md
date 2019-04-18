@@ -11,11 +11,13 @@ A Javascript platform game created by Hetic Students for a "project" week.
 
 ## Game presentation
 
-The goal of this game is to take keys on the map. After taking all the keys you will leave the prison. Be carreful of prison guards and cameras ! 
+The goal of the game is to escape the jail and arrive to your plane. Gather the keys on the maps and watch out for the guards and cameras ! 
 
 ## Screenshots
 ![First Level](https://zupimages.net/up/19/16/5wrx.png)
 ![Carlos Ghosn](https://zupimages.net/up/19/16/s85n.jpg)
+![The guards](https://zupimages.net/up/19/16/123c.png)
+![Second Level](https://zupimages.net/up/19/16/tgem.png)
 
 ## Controls
 ```

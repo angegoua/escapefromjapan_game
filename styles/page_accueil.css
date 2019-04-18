@@ -288,9 +288,9 @@ h4 a{
   /* END MAIN */
 
   /* FOOTER */
-  footer {
-    padding: 15px;
-  }
+footer {
+  padding: 15px;
+}
 .footerInformation {
   display: flex;
   flex-direction: column;
