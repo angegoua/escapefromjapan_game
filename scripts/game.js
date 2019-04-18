@@ -330,7 +330,7 @@ function moveGuards(){
     for(let i = 0; i < guards.length; i++){
         
         guards[i].move()
-
+        checkCollisionPlayer(guards[i])
         ctx.drawImage(guardsImages[i], guards[i].posX, guards[i].posY)
         guardsImages[i].src = guards[i].skin 
         
@@ -489,6 +489,23 @@ function checkCollisionGuards(object){
     } 
 }
 
+function checkCollisionPlayer(object){
+    // for(let i = 0; i < guards.length; i++){
+
+        //If a collision is detected
+        if (object.posX + object.width > player.posX - 20 && 
+            object.posX < player.posX  + player.width +20 &&
+            object.posY < player.posY + player.height +20 && 
+            object.posY + object.height > player.posY - 20
+            ) {
+                gamePlaying = false
+                uiDivDisplay('gameLose')
+            return true
+
+         }
+    // } 
+}
+
 //Collision with zoneObjects
 function checkCollisionZoneObjects() {
 
@@ -593,8 +610,8 @@ class Key{
 let keys = [
             new Key(50, 300, 60, 50),
             new Key(1200, 100, 60, 50),
-            new Key(50, 480, 60, 50),
-            new Key(300, 70,60,50)
+            new Key(350, 460, 60, 50),
+            new Key(250, 70,60,50)
         ]
 
 let imageKeys = new Array()
