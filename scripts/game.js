@@ -302,7 +302,8 @@ let guards = [
     new Guard(250, 400, 'down', 5, 'resource_pack/cop/cop_face.png'),
     new Guard(1100, 400, 'right', 10, 'resource_pack/cop/cop_right.png'),
     new Guard(700, 630, 'right', 10, 'resource_pack/cop/cop_right.png'),
-    new Guard(0, 560,'left',10,'resource_pack/cop/cop_left.png')
+    new Guard(0, 560,'left',10,'resource_pack/cop/cop_left.png'),
+    new Guard(750, 70, 'down', 5, 'resource_pack/cop/cop_face.png')
 ]
 
 //Declaration of Guard image variable
@@ -496,7 +497,7 @@ function checkCollisionZoneObjects() {
         zoneObjects[i].checkCollision()
 
         //if zone ocjet == victory and collision == true
-        if(zoneObjects[i].type == 'victoryZone' && zoneObjects[i].checkCollision() == true && keysCount == 3)
+        if(zoneObjects[i].type == 'victoryZone' && zoneObjects[i].checkCollision() == true && keysNumber == 4)
         {
             gamePlaying = false
             uiDivDisplay('gameWin')
@@ -589,9 +590,12 @@ class Key{
         this.pickUp = false
     }
 }
-let keys = [new Key(50, 300, 60, 50),
-           new Key(1200, 100, 60, 50)]
-
+let keys = [
+            new Key(50, 300, 60, 50),
+            new Key(1200, 100, 60, 50),
+            new Key(50, 480, 60, 50),
+            new Key(300, 70,60,50)
+        ]
 
 let imageKeys = new Array()
 
