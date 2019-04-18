@@ -4,7 +4,7 @@ body{
     padding: 0;
     margin: 0;
     background-color: rgb(55, 45, 78);
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .gameCenter {
@@ -101,7 +101,7 @@ p{
     position: relative;
     left: 878px;
     top: -81px;
-    /* display: none; */
+    display: none;
     opacity: 0;
     transition: 0.5s ; 
 }
