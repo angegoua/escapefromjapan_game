@@ -328,7 +328,6 @@ let moveGuardInterval = setInterval(moveGuards, 100)
 
 function moveGuards(){
     
-
     //Creating of walls
     for(let i = 0; i < guards.length; i++){
         
@@ -543,10 +542,12 @@ function gameContinue() {
     gamePlaying = true
 }
 
-
+//Fonction which init the game 
 function init(){
     player = new Player(70, 15, 'down', 1, 'resource_pack/carlos/carlos_face_stopover.png')
-
+    //Setting key to 0
+    keysNumber = 0
+    keysCount.innerHTML = keysNumber
 }
 
 /*
