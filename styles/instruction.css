@@ -1,0 +1,155 @@
+body{
+    font-family: 'VT323', monospace;
+    padding: 0;
+    margin: 0;
+    
+}
+
+.container{
+    width: 760px;
+    margin: 0 auto;
+  }
+  header, footer {
+    background: #30336b;
+    color: #fff;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    padding: 15px 60px;
+    border-bottom: solid 5px #1abc9c;
+  
+  }
+  
+  header .logo img{
+    width: 75px;
+    height: auto;
+  }
+  
+  #socialMedia{
+    padding-top: 10px;
+    padding-right: 110px;
+  }
+  #socialMedia img:hover {
+    background: #1abc9c;
+    border-radius: 50%;
+  }
+
+header .logo img{
+    width: 75px;
+    height: auto;
+  }
+
+p.textInstructions{
+    margin: 10vh 0;
+    text-align: center;
+    font-size: 2rem;
+}
+.instructions{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+h1{
+    color: #30336b;
+
+    text-align: center;
+    font-size: 6rem;
+}
+
+div[class^="key"]{
+    margin: 2vh 0;
+}
+div[class^="key"]:not(.keyPause):not(.keyUp){
+    width: 33%;   
+}
+
+.keyPause, .keyUp{
+    width: 50%;
+}
+
+.keyP{
+    text-align: center;
+}
+
+.key{
+    animation: scale 3s infinite;
+}
+
+/* @keyframes scale {
+    0%{
+        transform: scale(100)
+    }
+    50%{
+        transform: scale(0%)
+    }
+    100%{
+        transform: scale(100%)
+    }
+} */
+@keyframes scale {
+    from {
+        transform: scale(1)
+    }
+  
+    50% {
+        transform: scale(1.2)
+    }
+    to{
+        transform: scale(1)
+    }
+  }
+
+  .playBtn {
+    background: #fed330;
+    padding: 7px 13px;
+    border-radius: 10px;
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0 46vw;
+  }
+  
+  .playBtn:hover {
+    background: #f39c12;
+    transition: 0.2s ease;
+    color: white;
+  }
+
+  footer {
+    padding: 15px;
+    margin-top: 90px;
+  }
+  .footerInformation {
+    display: flex;
+    flex-direction: column;
+  }
+  .flex-container {
+    margin: auto;
+    width: 330px;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .flex-container a{
+    color: #fff;
+    text-decoration: none;
+  }
+  .flex-container a:hover{
+    color: #f9ca24;
+  }
+  
+  .copyright{
+    text-align: center;
+  }
+  .copyright p {
+    transition: 0.5s;
+    color: #aaa;
+    font-size: 13px;
+    margin-bottom: 0;
+  }
