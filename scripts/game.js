@@ -18,7 +18,7 @@ const devMod = true //TO see block of wall
 let gamePlaying = true //Function used to pause the game
 let player
 const newShittySong = new Audio('resource_pack/sound_effect/bg_sound.mp3')
-const newDeathGameSong = new Audio('resource_pack/sound_effect/death.mp3')
+const newDeathGameSong = new Audio('resource_pack/sound_effect/game_over.mp3')
 let skinVariation = 1
 const keysCount =  document.querySelector('.keyCount')
 let keysNumber = 0
@@ -37,17 +37,17 @@ document.addEventListener(
     'keydown',
     ()=>{
         newShittySong.play();
-        
+
     }
 )
 
 //OBJECT PLAYER
 class Player {
     constructor(posX, posY, direction, speed, skin) {
-        
+
         this.posX = posX; //player position on x
         this.posY = posY;   //player position on y
-        this.direction = direction; //player direction 
+        this.direction = direction; //player direction
         this.speed = 5; //player speed
         this.skin = skin; //player
         this.height = 40;
@@ -65,21 +65,21 @@ class Player {
             if(gamePlaying){
 
                 if(key.keyCode == '39'){ //KeyRight
-                
+
                 ctx.clearRect(player.posX, player.posY, 40,40)
                 player.posX = player.posX + player.speed // + width player
-                
+
                     checkCollisionGuards(player)
-                    
+
                     if(checkCollision(player)) {
 
-                        player.posX = player.posX - player.speed 
+                        player.posX = player.posX - player.speed
 
                     }
 
                     ctx.drawImage(image, player.posX, player.posY)
-                    image.src = player.skin 
-                    
+                    image.src = player.skin
+
                     if(skinVariation == 1){
                         player.skin = 'resource_pack/carlos/carlos_left.png'
                         skinVariation++
@@ -89,25 +89,25 @@ class Player {
                         skinVariation--
                     }
 
-                    checkCollisionZoneObjects() 
+                    checkCollisionZoneObjects()
 
                 }
                 else if(key.keyCode == '37'){ //KeyLeft
-                
+
                     ctx.clearRect(player.posX, player.posY, 40,40)
                     player.posX = player.posX - player.speed // + width player
-                    
+
                     checkCollisionGuards(player)
 
                     if(checkCollision(player)) {
 
-                        player.posX = player.posX + player.speed 
+                        player.posX = player.posX + player.speed
 
                     }
 
                     ctx.drawImage(image, player.posX, player.posY)
-                    image.src = player.skin 
-                    
+                    image.src = player.skin
+
                     if(skinVariation == 1){
                         player.skin = 'resource_pack/carlos/carlos_right.png'
                         skinVariation++
@@ -116,16 +116,16 @@ class Player {
                         player.skin = 'resource_pack/carlos/carlos_right2.png'
                         skinVariation--
                     }
-                    
+
                     checkCollisionZoneObjects()
-                    
-                
+
+
                 }
                 if(key.keyCode == '38'){ //KeyUp
-                
+
                     ctx.clearRect(player.posX, player.posY, 40,40)
                     player.posY = player.posY - player.speed// +witdh player
-                    
+
                     checkCollisionGuards(player)
 
                     if(checkCollision(player)) {
@@ -135,8 +135,8 @@ class Player {
                     }
 
                     ctx.drawImage(image, player.posX, player.posY)
-                    image.src = player.skin 
-                    
+                    image.src = player.skin
+
                     if(skinVariation == 1){
                         player.skin = 'resource_pack/carlos/carlos_back.png'
                         skinVariation++
@@ -147,13 +147,13 @@ class Player {
                     }
 
                     checkCollisionZoneObjects()
-                           
+
                 }
                 else if(key.keyCode == '40'){ //KeyDown
-                
+
                     ctx.clearRect(player.posX, player.posY, 40,40)
                     player.posY = player.posY + player.speed // + width player
-                    
+
                     checkCollisionGuards(player)
 
                     if(checkCollision(player)) {
@@ -163,7 +163,7 @@ class Player {
                     }
 
                     ctx.drawImage(image, player.posX, player.posY)
-                    image.src = player.skin 
+                    image.src = player.skin
 
                     if(skinVariation == 1){
                         player.skin = 'resource_pack/carlos/carlos_face.png'
@@ -174,12 +174,12 @@ class Player {
                         skinVariation--
                     }
                     checkCollisionZoneObjects()
-        
+
                 }
             }
-        }        
+        }
     }
-    
+
 }
 
 init()
@@ -191,7 +191,7 @@ image.onload = function(){
     ctx.drawImage(image, player.posX, player.posY)
 }
 
-image.src = player.skin 
+image.src = player.skin
 
 //PLAYER'S MOVE
 player.movePlayer()
@@ -211,7 +211,7 @@ class Guard{
         this.skinVariation = 1
     }
     move() {
-      
+
         ctx.clearRect(this.posX, this.posY, 50,50)
 
         //Checking direction of cops
@@ -260,7 +260,7 @@ class Guard{
 
                 break
             case 'left':
-                
+
                 this.posX = this.posX - this.speed
 
                 //Changing of skin to create an "animation"
@@ -306,41 +306,42 @@ class Guard{
 }
 
 //Declaration of guards variable
-    let guards = [
-        new Guard(250, 400, 'down', 5, 'resource_pack/cop/cop_face.png'),
-        new Guard(1100, 400, 'right', 10, 'resource_pack/cop/cop_right.png'),
-        new Guard(700, 630, 'right', 10, 'resource_pack/cop/cop_right.png'),
-        new Guard(0, 560,'left',10,'resource_pack/cop/cop_left.png')
-    ]
+let guards = [
+    new Guard(250, 400, 'down', 5, 'resource_pack/cop/cop_face.png'),
+    new Guard(1100, 400, 'right', 10, 'resource_pack/cop/cop_right.png'),
+    new Guard(700, 630, 'right', 10, 'resource_pack/cop/cop_right.png'),
+    new Guard(0, 560,'left',10,'resource_pack/cop/cop_left.png'),
+    new Guard(750, 70, 'down', 5, 'resource_pack/cop/cop_face.png')
+]
 
 //Declaration of Guard image variable
 let guardsImages = new Array()
 
 //Spawning of Guards
 for(let i = 0; i < guards.length; i++){
-   
+
     //PGUARD'S CREATE
     guardsImages[i] = new Image()
 
     guardsImages[i].onload = function(){
         ctx.drawImage(guardsImages[i], guards[i].posX, guards[i].posY)
     }
-    guardsImages[i].src = guards[i].skin 
+    guardsImages[i].src = guards[i].skin
 }
 
 //Interval of guards which activate the function of moving
 let moveGuardInterval = setInterval(moveGuards, 100)
 
 function moveGuards(){
-    
+
     //Creating of walls
     for(let i = 0; i < guards.length; i++){
-        
-        guards[i].move()
 
+        guards[i].move()
+        checkCollisionPlayer(guards[i])
         ctx.drawImage(guardsImages[i], guards[i].posX, guards[i].posY)
-        guardsImages[i].src = guards[i].skin 
-        
+        guardsImages[i].src = guards[i].skin
+
     }
 }
 
@@ -358,7 +359,7 @@ class Wall{
         this.display = display
     }
     create(){
-        
+
         //Si on choisit de l'afficher
         if(devMod){
 
@@ -420,13 +421,13 @@ class ZoneObject{
         this.width = width
         this.height = height
         this.type = type
-        this.skin = skin 
+        this.skin = skin
     }
-    
+
     create(){
-        
+
     //To show block of wall or not
-        
+
         if(devMod){
 
             ctx.fillStyle = 'green'
@@ -435,9 +436,9 @@ class ZoneObject{
     }
     checkCollision(){
 
-        if (player.posX > this.posX && 
+        if (player.posX > this.posX &&
             player.posX < this.posX + this.width - 40 &&
-            player.posY < this.posY + this.height - 40 && 
+            player.posY < this.posY + this.height - 40 &&
             player.posY + player.height - 40 > this.posY) {
 
             return true
@@ -451,7 +452,7 @@ let zoneObjects = [
     new ZoneObject(1170, 660, 80, 100, 'victoryZone'),
     new ZoneObject(10, 230, 90, 90, 'camera'),//First camera on the left
     new ZoneObject(971, 20, 90, 90, 'camera'),//First camera on the right
-    new ZoneObject(1200, 20, 90, 100, 'camera')//First camera on the extrem right 
+    new ZoneObject(1200, 20, 90, 100, 'camera')//First camera on the extrem right
 ]
 
 generatingZoneObjects()
@@ -472,16 +473,16 @@ function checkCollision(object){
     for(let i = 0; i < walls.length; i++){
 
         //If a collision is detected
-        if (object.posX + object.width > walls[i].posX && 
+        if (object.posX + object.width > walls[i].posX &&
             object.posX < walls[i].posX + walls[i].width &&
-            object.posY < walls[i].posY + walls[i].height && 
+            object.posY < walls[i].posY + walls[i].height &&
             object.posY + object.height > walls[i].posY
             ) {
 
             return true
 
          }
-    } 
+    }
 }
 
 
@@ -490,9 +491,9 @@ function checkCollisionGuards(object){
     for(let i = 0; i < guards.length; i++){
 
         //If a collision is detected
-        if (object.posX + object.width > guards[i].posX - 20 && 
+        if (object.posX + object.width > guards[i].posX - 20 &&
             object.posX < guards[i].posX  + guards[i].width +20 &&
-            object.posY < guards[i].posY + guards[i].height +20 && 
+            object.posY < guards[i].posY + guards[i].height +20 &&
             object.posY + object.height > guards[i].posY - 20
             ) {
                 gamePlaying = false
@@ -500,7 +501,24 @@ function checkCollisionGuards(object){
             return true
 
          }
-    } 
+    }
+}
+
+function checkCollisionPlayer(object){
+    // for(let i = 0; i < guards.length; i++){
+
+        //If a collision is detected
+        if (object.posX + object.width > player.posX - 20 && 
+            object.posX < player.posX  + player.width +20 &&
+            object.posY < player.posY + player.height +20 && 
+            object.posY + object.height > player.posY - 20
+            ) {
+                gamePlaying = false
+                uiDivDisplay('gameLose')
+            return true
+
+         }
+    // } 
 }
 
 //Collision with zoneObjects
@@ -511,7 +529,7 @@ function checkCollisionZoneObjects() {
         zoneObjects[i].checkCollision()
 
         //if zone ocjet == victory and collision == true
-        if(zoneObjects[i].type == 'victoryZone' && zoneObjects[i].checkCollision() == true && keysCount == 3)
+        if(zoneObjects[i].type == 'victoryZone' && zoneObjects[i].checkCollision() == true && keysNumber == 4)
         {
             gamePlaying = false
             uiDivDisplay('gameWin')
@@ -553,7 +571,7 @@ function gameContinue() {
     gamePlaying = true
 }
 
-//Fonction which init the game 
+//Fonction which init the game
 function init(){
     player = new Player(70, 15, 'down', 1, 'resource_pack/carlos/carlos_face_stopover.png')
     //Setting key to 0
@@ -571,7 +589,7 @@ function retry(){
     player.skin = 'resource_pack/carlos/carlos_face_stopover.png'
 
     ctx.drawImage(image, player.posX, player.posY)
-    image.src = player.skin 
+    image.src = player.skin
 
     //Setting key to 0
     keysNumber = 0
@@ -587,7 +605,7 @@ function retry(){
     gamePlaying = true
 }
 /*
-CREATION OF KEYS 
+CREATION OF KEYS
 */
 
 class Key{
@@ -600,36 +618,39 @@ class Key{
         this.pickUp = false
     }
 }
-
-let keys = [new Key(50, 300, 60, 50),
-           new Key(1200, 100, 60, 50)]
+let keys = [
+            new Key(50, 300, 60, 50),
+            new Key(1200, 100, 60, 50),
+            new Key(350, 460, 60, 50),
+            new Key(250, 70,60,50)
+        ]
 
 let imageKeys = new Array()
 
 keyCreate()
 //Spawning of Keys
 function keyCreate(){
-    
+
     for(let i = 0; i < keys.length; i++){
-    
+
         //Key'S CREATE
         imageKeys[i] = new Image()
 
         imageKeys[i].onload = function(){
             ctx.drawImage(imageKeys[i], keys[i].posX, keys[i].posY)
         }
-        imageKeys[i].src =keys[i].skin 
+        imageKeys[i].src =keys[i].skin
     }
 }
 function checkCollisionKeys(player){
     for(let i = 0; i < keys.length; i++){
 
-        //If a collision is detectedkeyNumberBool 
-        if (player.posX + player.width > keys[i].posX  && 
+        //If a collision is detectedkeyNumberBool
+        if (player.posX + player.width > keys[i].posX  &&
             player.posX < keys[i].posX  + keys[i].width  &&
-            player.posY < keys[i].posY + keys[i].height  && 
-            player.posY + keys[i].height > keys[i].posY 
-            ) { 
+            player.posY < keys[i].posY + keys[i].height  &&
+            player.posY + keys[i].height > keys[i].posY
+            ) {
 
                 if(keys[i].pickUp == false)
                 {
@@ -637,14 +658,14 @@ function checkCollisionKeys(player){
                     keysCount.innerHTML = keysNumber
 
                     ctx.clearRect(keys[i].posX, keys[i].posY, 60,50)
-                    
+
                     keys[i].pickUp = true
                 }
 
             return true
         }
-    }    
-} 
+    }
+}
 
 
 /*
@@ -672,7 +693,7 @@ function uiDivDisplay(action) {
         gameDisplayButton1.addEventListener(
             'click',
             function(){
-                
+
                 if( !gamePlaying){
                     gameContinue()
                 }
@@ -739,7 +760,7 @@ function uiDivDisplay(action) {
 
                 //Hidding the menu
                 uiDivHide()
-                
+
             }
         )
 
@@ -747,7 +768,7 @@ function uiDivDisplay(action) {
         gameDisplayButton2.addEventListener(
             'click',
             function(){
-                
+
                 //Fonction which retry the level
                 retry()
 
@@ -761,7 +782,7 @@ function uiDivDisplay(action) {
 
 //hidding of the menu
 function uiDivHide(){
-    UIdiv.style.display = 'none' 
+    UIdiv.style.display = 'none'
 }
 
 

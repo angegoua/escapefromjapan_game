@@ -3,7 +3,7 @@ const sliderImages = document.querySelectorAll('.sliderContainer img')
 const leftArrow = document.querySelector('.left');
 const rightArrow = document.querySelector('.right');
 const pagination = document.querySelector('.pagination')
-const step = 458 // definit le décalage
+const step = 508 // definit le décalage
 let pos = 0 // définit la position en cours.
 let action
 playSlider()
