@@ -15,6 +15,7 @@ The goal of this game is to take keys on the map. After taking all the keys you 
 
 ## Screenshots
 ![First Level](https://zupimages.net/up/19/16/5wrx.png)
+![Carlos Ghosn](https://zupimages.net/up/19/16/s85n.jpg)
 
 ## Controls
 ```
