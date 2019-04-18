@@ -435,10 +435,10 @@ function checkCollisionGuards(object){
     for(let i = 0; i < guards.length; i++){
 
         //If a collision is detected
-        if (object.posX + object.width > guards[i].posX - 50 && 
-            object.posX < guards[i].posX  + guards[i].width +50 &&
-            object.posY < guards[i].posY + guards[i].height +50 && 
-            object.posY + object.height > guards[i].posY -50
+        if (object.posX + object.width > guards[i].posX - 20 && 
+            object.posX < guards[i].posX  + guards[i].width +20 &&
+            object.posY < guards[i].posY + guards[i].height +20 && 
+            object.posY + object.height > guards[i].posY - 20
             ) {
                 init()
                 uiDivDisplay('gameLose')
