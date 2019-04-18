@@ -14,6 +14,7 @@
 
 const canvas = document.querySelector('#game')
 const ctx = canvas.getContext("2d")
+const levelNameDisplay = document.querySelector('.levelNameDisplay')
 const devMod = true //TO see block of wall
 let gamePlaying = true //Function used to pause the game
 let player
@@ -25,13 +26,17 @@ let keysNumber = 0
 
 
 class Level{
-    constructor(level, background){
+    constructor(level, background, levelName){
         this.level = level
         this.background = background
+        this.levelName = levelName
+    }
+    nameUpdate(){
+        levelNameDisplay.innerHTML = this.levelName
     }
 }
 
-let currentLevel = new Level(1, 'map2_whithout_cop_and_car_and_passport.png')
+let currentLevel = new Level(1, 'map2_whithout_cop_and_car_and_passport.png', 'LEVEL 1 : ESCAPE THE PRISON')
 
 document.addEventListener(
     'keydown',
@@ -751,7 +756,7 @@ function uiDivDisplay(action) {
         gameDisplayButton1.addEventListener(
             'click',
             function(){
-                init()
+
                 //fonction which move the player to the next level
                 currentLevel.level++
                 changeLevel(currentLevel)
@@ -761,6 +766,7 @@ function uiDivDisplay(action) {
                 //Hidding the menu
                 uiDivHide()
 
+                gamePlaying = true
             }
         )
 
@@ -789,12 +795,18 @@ function uiDivHide(){
 function changeLevel(levelToLoad) {
 
     //Removing of all the images and sprites
-    
     ctx.clearRect(0, 0, 1300, 731)
 
-    canvas.style.background = 'url(resource_pack/background/' + levelToLoad.background + ')'
-
     if(levelToLoad.level == 2) {
+
+        //Updating the level name
+        currentLevel.levelName = 'LEVEL 2: ESCAPE WITH THE PLANE'
+        currentLevel.nameUpdate()
+
+        levelToLoad.background = 'map2_whithout_cop_and_car_and_passport.png'
+
+        canvas.style.background = 'url(resource_pack/background/' + levelToLoad.background + ')'
+
         walls = [
             new Wall(0, 0, 1300, 10),//bordure haut
             new Wall(0, 721, 1300, 10),//bordure bas
@@ -846,8 +858,8 @@ function changeLevel(levelToLoad) {
 
         zoneObjects = [
             new ZoneObject(860, 515, 200, 80, 'victoryZone'),
-            new ZoneObject(10, 10, 43, 74, 'camera'),//First camera on the left
-            new ZoneObject(1247, 34, 43, 48, 'camera'),// Camera on the top right
+            new ZoneObject(10, 10, 60, 90, 'camera'),//First camera on the left
+            new ZoneObject(1200, 33, 90, 93, 'camera'),// Camera on the top right
         ]
 
         keys = [
@@ -857,6 +869,7 @@ function changeLevel(levelToLoad) {
         ]
     }
 
+    init()
     generateWall()
     generatingZoneObjects()
     keyCreate()
