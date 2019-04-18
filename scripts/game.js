@@ -893,7 +893,7 @@ function changeLevel(levelToLoad) {
             new Guard(500, 550, 'down', 3, 'resource_pack/cop/cop_face.png'),
             new Guard(580, 110, 'up', 3, 'resource_pack/cop/cop_back.png'),
             new Guard(760, 220, 'down', 5, 'resource_pack/cop/cop_face.png'),
-            new Guard(980, 30, 'down', 5, 'resource_pack/cop/cop_face.png')
+            new Guard(940, 30, 'down', 5, 'resource_pack/cop/cop_face.png')
         ]
 
         zoneObjects = [
